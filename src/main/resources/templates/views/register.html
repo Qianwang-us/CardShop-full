@@ -1,0 +1,69 @@
+<!-- Admin and Customer can login in order to use full features such as buying or perform admin functions-->
+<!DOCTYPE html>
+
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"  lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register</title>
+
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  
+  <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+  <link rel="stylesheet" href="../styles/basic.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/login.css"> -->
+  
+  <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/login.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main>
+    <h2>Create your account</h2>
+    <form action="#" th:action="@{/register/save}" th:object="${newUser}" method="post">
+    
+      <div class="container">
+      	<!-- <div>
+			<input id="uName" th:field="${newUser.uName}" type="text"
+				class="validate" /> 
+			<label for="uName">Name</label> 
+			<span th:if="${#fields.hasErrors('newUser.uName')}"
+			th:errors="*{newUser.uName}" class="error">Name Error</span>
+		</div> -->
+				
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" th:field="*{firstName}">       
+		<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"> 
+		First Name is required</span>
+			
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" th:field="*{lastName}">
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"> 
+		Last Name is required</span>
+
+        <label for="email">Email address</label>
+        <input type="email" id="email" th:field="*{email}">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"> 
+		Email is required</span>
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"> 
+		Password is required</span>
+        <button type="submit">CREATE AN ACCOUNT</button>
+      </div>
+    </form>
+
+    <div class="changePage">Already have an account?</div>
+    <a th:href="@{/login}"><button type="button">SIGN IN</button></a>
+  </main>
+
+</body>
+
+</html>

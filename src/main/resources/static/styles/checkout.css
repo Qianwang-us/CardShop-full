@@ -1,0 +1,42 @@
+.checkout-process{
+  margin: 2% 0;
+}
+
+
+.address-payment{
+  display:flex;
+  justify-content: space-around;
+  border: 1px solid #E1E8EE;
+  border-radius: 5px;
+  margin:1%;
+}
+
+address{
+  font-style: normal;
+}
+
+table{
+  margin-top:2%;
+}
+
+.bottom-line{
+  border-bottom:1px solid black;
+}
+
+#order-summary caption{
+  font-weight: 700;
+}
+
+#order-summary td:first-child{
+  text-align: right;
+  width:50%;
+}
+
+#order-summary td:last-child{
+  text-align: left;
+}
+
+.order-total{
+  color:red;
+  font-weight:500;
+}

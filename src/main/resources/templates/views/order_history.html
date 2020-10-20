@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <head>
+    <meta charset="utf-8">
+    <title>iCard-Order History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- use google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+    <link rel="stylesheet" href="../styles/basic.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/order_history.css"> -->
+     <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/order_history.css}" rel="stylesheet" />
+    
+    <style>
+    </style>
+  </head>
+  <body>
+    <div th:replace="views/fragments/header :: header"></div>
+    <main>
+      <table class="order">
+        <caption>Recent Orders</caption>
+        <tr>
+          <th>Order ID</th>
+          <th>Order Date/Time</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Custom Text</th>
+          <th>Shipping Address</th>
+          <th>Status</th>
+        </tr>
+
+        <!-- template for one order item -->
+        <tr class="order-item">
+          <td>A1000001</td>
+          <td>2020-08-10, 13:20</td>
+          <td><a href="product.html">Chrismas Tower</a></td>
+          <td>1</td>
+          <td>
+            <details>
+              <summary>Details</summary>
+              custom top: Dear An,<br>
+              custom body: Merry Chrismas!<br>
+              custom bottom: Sincerely, Qian
+            </details>
+          </td>
+          <td>
+            <details>
+              <summary>Details</summary>
+              Qian<br>
+              10 Persholas ST APT 10<br>
+              BOSTON, MA 02130<br>
+              United States<br>
+              Phone: 6170009999
+            </details>
+          </td>
+          <td>Created</td>
+        </tr>
+
+        
+      </table>
+    </main>
+
+  </body>
+</html>

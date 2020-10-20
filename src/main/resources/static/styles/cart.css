@@ -1,0 +1,78 @@
+
+
+.shopping-cart{
+  display:flex;
+  flex-direction:row;
+}
+
+/* Columns */
+.left-column{
+  flex:9;
+}
+
+.right-column{
+  flex:2.5;
+}
+
+/* left column */
+main h2{
+  font-weight: 400;
+  border-bottom:2px solid var(--border-color);
+}
+.item{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+  border-bottom:2px solid #E1E8EE;
+  padding-bottom:1em;
+  margin:2%;
+}
+
+.item>div{
+  margin:1%;
+}
+
+.card-img img{
+  width: 12em;
+  height: 8em;
+  object-fit:cover;
+}
+
+.product-info>div{
+  line-height: 1.5em;
+}
+
+input[type=number]{
+    width: 3em;
+}
+
+.name, .delete{
+  color:#0066C0;
+}
+
+.delete{
+  font-size:0.8em;
+}
+
+.custom-text div{
+  line-height: 1.5em;
+}
+
+/* right column */
+.right-column{
+  background-color:#E1E8EE;
+  border-radius: 5px;
+  padding: 1%;
+  text-align:center;
+  position:relative;
+}
+
+button{
+  padding: 0.2em 0.8em;
+}
+
+.bottom{
+  position:absolute;
+  bottom:1em;
+  right:1em;
+}

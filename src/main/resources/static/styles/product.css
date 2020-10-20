@@ -1,0 +1,179 @@
+
+.product-container{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+  padding: 1em;
+}
+
+/* Columns */
+.left-column {
+  flex: 1.1;
+  margin-right:2%;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end;
+
+}
+
+/* Left Column */
+
+.card-img {
+  width: 100%;
+  margin: 2%;
+  text-align: right;
+  box-sizing:border-box;
+}
+
+.card-img img{
+  object-fit: cover;
+  width: 30em;
+  height: 20em;
+}
+
+.text-template{
+  border:2px solid black;
+  width: 30em;
+  height: 20em;
+  position: relative;
+}
+
+.text-template .top{
+  position: absolute;
+  top:1em;
+  left:1em;
+}
+
+.text-template .body{
+  position: absolute;
+  top:6em;
+  left:3em;
+  right: 3em;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.text-template .bottom{
+  position: absolute;
+  top:18em;
+  left:22em;
+}
+
+/* Right Column */
+
+.right-column{
+  flex:1;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+}
+
+.product-description{
+  height: 15em;
+  box-sizing: border-box;
+  margin:2%;
+  /* border: 2px solid black; */
+}
+
+.customize{
+  height: 20em;
+  box-sizing: border-box;
+  margin:2%;
+  /* border: 2px solid black; */
+}
+
+/* Product Description */
+.product-description h1 {
+  font-weight: 300;
+  font-size: 2.0em;
+  color: #43484D;
+  letter-spacing: -2px;
+}
+.product-description p {
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #86939E;
+}
+
+.product-description input[type="number"] {
+  display: inline;
+  width: 4em;
+  color: #86939E;
+  font-size: 0.8em;
+}
+
+.product-description i:hover {
+  color:var(--favoriate-hover-color);
+}
+
+.custom-theme{
+  display:flex;
+  flex-direction: row;
+}
+
+/* table.custom-theme{
+  text-align: left;
+  width:100%;
+  table-layout: auto;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.custom-theme td{
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid black;
+} */
+
+label[for="black"]{
+  color:black;
+}
+
+label[for="blue"]{
+  color:blue;
+}
+
+label[for="purple"]{
+  color:purple;
+}
+
+/* Font choice: 'Petit Formal Script', 'Grandstander', 'Dancing Script' */
+label[for="elegant"]{
+  font-family: 'Petit Formal Script', cursive;
+}
+
+label[for="cute"]{
+  font-family: 'Grandstander', cursive;
+}
+
+label[for="lively"]{
+  font-family: 'Dancing Script', cursive;
+}
+
+.custom-text{
+  margin-bottom: 1.5em;
+}
+
+.custom-text .bottom{
+  text-align: right;
+}
+
+input, textarea{
+  margin-bottom: 1.2em;
+  display:block;
+  font-size:1.2em;
+}
+
+textarea{
+  resize: none;
+}
+
+
+.buttons{
+  margin-top:2%;
+  text-align: right;
+}

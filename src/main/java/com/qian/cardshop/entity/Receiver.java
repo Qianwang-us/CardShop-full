@@ -1,0 +1,180 @@
+package com.qian.cardshop.entity;
+
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "receivers")
+public class Receiver {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="receiver_id")
+	private Integer receiverId;
+	
+	@Column(name="first_name", nullable=false)
+	private String firstName;
+	
+	@Column(name="last_name", nullable=false)
+	private String lastName;
+	
+	@Column(name="address_line_1", nullable=false)
+	private String addressLine1;
+	
+	@Column(name="address_line_2")
+	private String addressLine2;
+	
+	@Column(name="city", nullable=false)
+	private String city;
+	
+	@Column(name="state", nullable=false)
+	private String state;
+	
+	@Column(name="zip_code", nullable=false)
+	private String zipCode;
+	
+	@Column(name="phone", nullable=false)
+	private String phone;
+	
+	//@OneToOne - associated
+	@OneToOne(mappedBy = "receiver")
+	private Order order;
+	
+	public Receiver() {}
+	
+	public Receiver(Customer customer) {
+		this.firstName = customer.getUser().getFirstName();
+		this.lastName = customer.getUser().getLastName();
+		this.addressLine1 = customer.getCustomerDetail().getAddressLine1();
+		this.addressLine2 = customer.getCustomerDetail().getAddressLine2();
+		this.city = customer.getCustomerDetail().getCity();
+		this.state = customer.getCustomerDetail().getState();
+		this.zipCode = customer.getCustomerDetail().getZipCode();
+		this.phone = customer.getCustomerDetail().getPhone();
+	}
+
+	public Receiver(String firstName, String lastName, String addressLine1, String addressLine2, String city,
+			String state, String zipCode, String phone) {
+		
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.phone = phone;
+	}
+
+	public Integer getReceiverId() {
+		return receiverId;
+	}
+
+	public void setReceiverId(Integer receiverId) {
+		this.receiverId = receiverId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "Receiver [receiverId=" + receiverId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state="
+				+ state + ", zipCode=" + zipCode + ", phone=" + phone + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(receiverId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Receiver other = (Receiver) obj;
+		return Objects.equals(receiverId, other.receiverId);
+	}
+	
+	
+}

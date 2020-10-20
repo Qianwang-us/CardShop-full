@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iCard Home</title>
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+  <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+  <link th:href="@{/styles/header.css}" rel="stylesheet" />
+  <link th:href="@{/styles/index.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main>
+  	<div th:if="${categoryName != null}">
+    Home &gt; <span th:text="${categoryName}"></span>
+    <!-- main sort options -->
+     <form action="#" th:action="@{/category}"
+		 method="POST">
+      <label for="sort-type">Sort by</label>
+      <select name="sort-type" id="sort-type">
+        <option th:value="new" selected>New</option>
+        <option th:value="priceAsc">Price(low -> high)</option>
+        <option th:value="priceDesc">Price(high -> low)</option>
+      </select>
+      <input type="hidden" name="categoryId" th:value="${categoryId}">
+      <button type="submit">Go</button>
+    </form>
+  	</div>
+  	
+  	<!-- <select class="form-control" name="example" id="example">
+     <option value="0">ALL</option>
+     <option th:each="user : ${allUsers}"
+             th:value="${user.id}"
+             th:selected="${user.isSelected(lastselected)}"
+             th:text="${user.name}">
+     </option>
+	</select> -->
+    
+
+    <!-- main product items display -->
+    <div class="item-container">
+
+      <!-- one item display template -->
+      <div class="main-item" th:each="tempProduct : ${products}">
+        <div class="item-img">
+          <a th:href="@{/product/{productId}(productId=${tempProduct.productId})}">
+            <!-- <img src="images/chrismas_tower_sm.jpg" alt="Chrismas tower"> -->
+            <img th:src="@{${tempProduct.imagePath}}" alt="Chrismas tower">
+          </a>
+        </div>
+        <div class="subitem-container">
+          <div class="favoriate">
+            <i class="far fa-heart"></i>
+          </div>
+          <div>
+            <ul>
+            <li>Name: <span th:text="${tempProduct.productName}" th:remove="tag">userName</span></li>
+            <li>Provider: <span th:text="${tempProduct.provider}" th:remove="tag">userName</span></li>
+            <li>Price: <span th:text="${tempProduct.price}" th:remove="tag">userName</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+  </main>
+  <script th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

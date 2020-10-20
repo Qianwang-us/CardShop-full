@@ -1,0 +1,171 @@
+<!-- admin update order status in order for order fulfillment -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <title>iCard-Order Fulfillment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+  <link rel="stylesheet" href="../styles/basic.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/order_fulfillment.css">
+  <style>
+  </style>
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main>
+    <form action="">
+      <label for="order_status">Filtered by order status:</label>
+      <select name="order_status" id="order_status">
+        <option value="created">Created</option>
+        <option value="in_process">In Process</option>
+        <option value="shipped">Shipped</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </form>
+
+    <form action="">
+      <table class="order-list">
+        <tr class="order-item">
+          <td colspan="8">
+          </td>
+
+          <td>
+            <button>Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <th>Selected</th>
+          <th>Order ID</th>
+          <th>Order Date</th>
+          <th>Product ID</th>
+          <th>Quantity</th>
+          <th>Custom Text</th>
+          <th>Shipping Address</th>
+          <th>Status</th>
+          <th>Next Step</th>
+        </tr>
+
+        <!-- template for one order item -->
+        <tr class="order-item">
+          <td>
+            <input type="checkbox" name="order_item" value="order_id,product_id">
+          </td>
+          <td>A1000001</td>
+          <td>2020-08-10</td>
+          <td>P1000001</td>
+          <td>1</td>
+          <td>
+            <div id="color">Color: Black</div>
+            <div id="font">Font: Elegant</div>
+            <details>
+              <summary>Details</summary>
+              custom top: Dear An,<br>
+              custom body: Merry Chrismas!<br>
+              custom bottom: Sincerely, Qian
+            </details>
+          </td>
+          <td>
+            <details>
+              <summary>Details</summary>
+              Qian<br>
+              10 Persholas ST APT 10<br>
+              BOSTON, MA 02130<br>
+              United States<br>
+              Phone: 6170009999
+            </details>
+          </td>
+          <td>Created</td>
+          <td>In Process</td>
+        </tr>
+
+        <!-- order 2 -->
+        <tr class="order-item">
+          <td>
+            <input type="checkbox" name="order_item" value="order_id,product_id">
+          </td>
+          <td>A1000002</td>
+          <td>2020-08-11</td>
+          <td>P1000002</td>
+          <td>1</td>
+          <td>
+            <div id="color">Color: Black</div>
+            <div id="font">Font: Elegant</div>
+            <details>
+              <summary>Details</summary>
+              custom top: Dear An,<br>
+              custom body: Merry Chrismas!<br>
+              custom bottom: Sincerely, Qian
+            </details>
+          </td>
+          <td>
+            <details>
+              <summary>Details</summary>
+              Qian<br>
+              10 Persholas ST APT 10<br>
+              BOSTON, MA 02130<br>
+              United States<br>
+              Phone: 6170009999
+            </details>
+          </td>
+          <td>In Process</td>
+          <td>Shipped</td>
+        </tr>
+
+        <!-- order 3 -->
+        <tr class="order-item">
+          <td>
+            <input type="checkbox" name="order_item" value="order_id,product_id">
+          </td>
+          <td>A1000003</td>
+          <td>2020-08-11</td>
+          <td>P1000003</td>
+          <td>1</td>
+          <td>
+            <div id="color">Color: Black</div>
+            <div id="font">Font: Elegant</div>
+            <details>
+              <summary>Details</summary>
+              custom top: Dear An,<br>
+              custom body: Merry Chrismas!<br>
+              custom bottom: Sincerely, Qian
+            </details>
+          </td>
+          <td>
+            <details>
+              <summary>Details</summary>
+              Qian<br>
+              10 Persholas ST APT 10<br>
+              BOSTON, MA 02130<br>
+              United States<br>
+              Phone: 6170009999
+            </details>
+          </td>
+          <td>Shipped</td>
+          <td>Complete</td>
+        </tr>
+
+        <tr class="order-item">
+          <td colspan="8">
+          </td>
+
+          <td>
+            <button>Next Step</button>
+          </td>
+        </tr>
+
+      </table>
+
+    </form>
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+.checkout-process{
+  margin: 2% 0;
+}
+
+.instruction{
+  border-bottom:2px solid var(--border-color);
+}
+.instruction h2{
+  font-weight: 400;
+}
+.instruction p{
+  font-weight: 300;
+  font-size: 0.9em;
+}
+
+/* current address */
+
+.current-address{
+  margin:2% 0;
+  width: 25%;
+}
+
+address{
+  font-style:normal;
+}
+
+
+button{
+  padding: 0.2rem 1.8rem;
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+/* new address */
+
+form h2{
+  font-size:400;
+}
+
+.required{
+  color:red;
+}
+
+.container{
+  display:flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+input{
+  border: 2px solid var(--border-color);
+  margin-bottom: 2%;
+  border-radius: 4px;
+  line-height: 2em;
+}

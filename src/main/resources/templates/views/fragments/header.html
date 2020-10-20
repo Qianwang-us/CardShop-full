@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Header</title>
+</head>
+
+<body>
+  <header th:fragment="header">
+    <!-- header top -->
+    <div class="header-top-container">
+      <div class="login">
+        <a href="@{/order_fulfillment}"><i class="fas fa-user-cog"></i></a>
+      </div>
+      <div class="cart">
+        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
+      </div>
+      <div class="login">
+        <a th:href="@{/order/order_history}">Orders</a>
+      </div>
+      
+      <th:block th:if="${session.currentUser} == null">
+      	<div class="login">
+        	<a th:href="@{/login}">Login</a>
+        </div>
+      </th:block>
+      
+      <!-- <th:block th:if="${session.currentUser} != null">
+      <div class="login">
+      Welcome, <span th:text="${session.currentUser.firstName}"></span>     	
+        	<a th:href="@{/logout}">Logout</a>
+        </div>
+      </th:block> -->
+      
+      <div sec:authorize="isAuthenticated()">
+      	<div class="login">
+      		<!-- Welcome, <input name="username" type="text" value="${sec.username()}" style="color:red;" />
+      		<span th:text="${sec.username()}" style="color:green;"></span>  -->    		
+      		<span sec:authentication="name" style="color:blue;"></span></div>  	
+        	<a th:href="@{/logout}">Logout</a>
+        </div>
+      </div>
+      
+    </div>
+    <!-- header menu bar -->
+    <div class="header-menu-container">
+      <div class="menu-item-logo">
+        <h1><a th:href="@{/}"><span>i</span>Card</a></h1>
+      </div>
+      <nav class="menu-item">
+        <ul>
+          <li>
+            <div class="dropdown">
+              <div>Holidays
+                  <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="dropdown-content">
+                <a th:href="@{/category/{categoryId}(categoryId=5)}">Chrismas Day</a>
+                <a th:href="@{/category/{categoryId}(categoryId=9)}">New Year's Day</a>
+                <a th:href="@{/category/{categoryId}(categoryId=6)}">Mother's Day</a>
+                <a th:href="@{/category/{categoryId}(categoryId=7)}">Father's Day</a>
+                <a th:href="@{/category/{categoryId}(categoryId=8)}">Valentine's Day</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <div>Events
+                  <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="dropdown-content">
+                <a th:href="@{/category/{categoryId}(categoryId=3)}">Birthday</a>
+                <a th:href="@{/category/{categoryId}(categoryId=4)}">Graduation</a>
+              </div>
+            </div>
+          </li>
+          <li><a href="#"><i class="fas fa-heart"></i></a></li>
+          <li><a th:href="@{/about_us}">About&nbsp;Us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="tagline">
+  <p>Customize your cards with your own words to your special one</p>
+    </div>
+  </header>
+
+
+</body>
+
+</html>

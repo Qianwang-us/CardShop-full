@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>iCard-Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Grandstander&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+  
+  <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+  <link rel="stylesheet" href="../styles/basic.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/product.css"> -->
+  
+   <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    
+
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+  <p>Sorry, you are not allowed to access this resource.</p>
+  </body>
+
+</html>

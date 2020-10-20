@@ -1,0 +1,83 @@
+<!-- after customizing products, show delivery and payment option to complete buying process -->
+<!-- Shopping cart page view all items in cart -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>iCard-Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/cart.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main id="top" >
+    <form action="#" th:action="@{/order/shipping_address}" th:object="${cart}" method="POST"> 
+    
+      <div class="shopping-cart">
+      
+      
+      <!-- left column: show item list in the cart -->
+        <div class="left-column">
+          <h2>Shopping Cart</h2>
+
+          <!-- product #1 -->
+          <div class="item" th:each="tempItem : ${cart.cartItems}">
+
+            <div class="card-img">
+              <img th:src="@{${tempItem.product.imagePath}}" alt="product photo" />
+            </div>
+
+            <div class="product-info">
+              <div class="name">Name: <span th:text="${tempItem.product.productName}"></span></div>
+              <div>Provider: <span th:text="${tempItem.product.provider}"></span></div>
+
+              <div>Quantity: <span th:text="${tempItem.quantity}"></span></div>
+              <div><a th:href="@{/edit_item(itemId=${tempItem.itemId})}">Update</a></div>
+              <!-- <div class="delete">Delete</div> -->
+              <div><a th:href="@{/remove_from_cart(itemId=${tempItem.itemId})}">Delete</a></div>
+            </div>
+
+            <div class="custom-text">
+              <div id="color">Color: <span th:text="${tempItem.textColor}"></span></div>
+              <div id="font">Font: <span th:text="${tempItem.textFont}"></span></div>
+              <details>
+                <summary>Custom text</summary>
+                <div>Top: [<span th:text="${tempItem.customTop}"></span>]</div>
+                <div>Body: [<span th:text="${tempItem.customBody}"></span>] </div>
+                <div>Bottom: [<span th:text="${tempItem.customBottom}"></span>]</div>
+              </details>
+            </div>
+            <div>Price: $<span class="price"><span th:text="${tempItem.product.price}"></span></span></div>
+          </div>          
+
+        </div>
+
+
+	<!-- right-column: show payment information of the cart -->
+        <div class="right-column">
+          <!-- <p>Subtotal: $<span id="total-price">30</span></p> -->
+          <p>Subtotal: $<span th:text="${itemsTotal}"></span></p>
+          <a th:href="@{/order/shipping_address(cartId=${cart.cartId})}"><button class="checkout-btn" type="button">Proceed to checkout</button></a> 
+          
+          <!-- <button class="checkout-btn" type="submit">Proceed to checkout</button>
+          <button class="checkout-btn" type="submit" th:formaction="@{/save_cart}">Save Cart</button> -->
+          <div class="bottom"><a href="#top">Back to top</a></div>
+        </div>
+     
+		
+      </div>
+      
+    </form> 
+  </main>
+  <!-- <script th:src="@{/js/cart.js}"></script> -->
+</body>
+</html>

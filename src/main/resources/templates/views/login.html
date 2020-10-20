@@ -1,0 +1,59 @@
+<!-- Admin and Customer can login in order to use full features such as buying or perform admin functions-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- <script src="https://use.fontawesome.com/4d2683cdc4.js"></script> -->
+  <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+  <link rel="stylesheet" href="../styles/basic.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/login.css"> -->
+  
+  <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/login.css}" rel="stylesheet" />
+</head>
+
+<body>
+ 
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main>
+  	<th:block th:if="${message} != null">
+      <span th:text="${message}"></span>
+      </th:block>
+      
+      <th:block th:if="${error} != null">
+      <span>Incorrect email or password, please try it again</span>
+      </th:block>
+    <h2>Sign in to your account</h2>
+    <form action="#" th:action="@{/login/authenticate}" method="post">
+      <div class="container">
+        <!-- <div>
+          <input type="radio" id="customer" name="role" th:value="customer" checked>
+          <label for="customer">Customer</label>
+          <input type="radio" id="admin" name="role" th:value="role">
+          <label for="admin">Admin</label>
+        </div> -->
+        <label for="email" >Email address</label>
+        <input type="text" id="email" name="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">SIGN IN</button>
+      </div>
+    </form>
+
+    <div class="changePage">New to iCard?</div>
+    <a th:href="@{/register}"><button type="button">CREATE AN ACCOUNT</button></a>
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+.order-list {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 2%;
+}
+
+caption{
+  font-weight: 400;
+  font-size: 1.4em;
+  padding-bottom: 0.4em;
+  text-align: left;
+}
+
+.order-list, th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th{
+  text-align: left;
+}

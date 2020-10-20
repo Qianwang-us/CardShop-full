@@ -1,0 +1,146 @@
+body {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Header */
+
+/* Header top */
+header {
+  border-bottom: 1px solid var(--header-border-color);
+}
+
+.header-top-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--header-top-color);
+  border-bottom: 2px solid var(--header-border-color);
+}
+
+.cart, .login{
+  margin: 1%;
+}
+
+.login a {
+  font-family: var(--menu-font-family);
+}
+
+.cart a, .login a{
+  color: var(--header-top-color);
+}
+
+.cart a:hover, .login a:hover{
+  color:var(--header-hover-color);
+}
+
+.login a:hover{
+border-bottom: 2px solid var(--header-top-color);
+}
+
+/* Header menu */
+
+.header-menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  font-family: "Mier-A","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+.menu-item-logo {
+  flex: 1;
+  text-align: left;
+}
+
+.menu-item-logo h1 a{
+  font-weight: 500;
+  color: black;
+  font-size: 0.8em;
+  display: block;
+  padding: 3%;
+  border: 4px solid var(--logo-color);
+  text-align: center;
+}
+
+.menu-item-logo h1 span{
+  color: var(--logo-color);
+  margin-right: 1%;
+}
+
+.menu-item {
+  flex: 8;
+}
+
+.header-menu-container li {
+  list-style-type: none;
+}
+
+header .menu-item ul{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+header .menu-item ul li a{
+  color: var(--menu-color);
+  padding: 1% 2%;
+
+}
+
+header .menu-item ul li a:hover {
+  color: var(--logo-color);
+  border-bottom: medium solid var(--logo-color);
+}
+
+header .menu-item ul li a i {
+  font-size: 1.5em;
+}
+
+/*dropdown menu*/
+.menu-item .dropdown-content{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 12rem;
+  box-shadow: 0px 0.5rem 1rem 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.menu-item .dropdown-content a {
+  /* float: none; */
+  color: black;
+  margin: 0.5em 1em;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+
+/* Show the dropdown menu on hover */
+.menu-item .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* header tagline */
+
+.tagline {
+  background-color: var(--tagline-bg-color);
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    font-family: Mier-A, sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    color: white;
+    text-align: center;
+}

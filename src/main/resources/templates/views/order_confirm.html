@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <head>
+    <meta charset="utf-8">
+    <title>iCard-Order Created</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- use google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+    <link rel="stylesheet" href="../styles/basic.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/order_confirm.css"> -->
+    
+    <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/order_confirm.css}" rel="stylesheet" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div th:replace="views/fragments/header :: header"></div>
+    <main>
+      <div>
+        <h1>Thanks for your order</h1>
+        <p>Your order is created successfully, and here are details</p>
+      </div>
+
+      <table class="order">
+        <tr>
+          <td>Order Number</td>
+          <td th:text="${orderId}"></td>
+        </tr>
+        <tr>
+          <td>Order Date/Time</td>
+          <td th:text="${createdOn}"></td>
+        </tr>
+      </table>
+
+
+    </main>
+
+  </body>
+</html>

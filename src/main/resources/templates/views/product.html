@@ -1,0 +1,117 @@
+<!-- product detail page for customizing products and buy -->
+<!-- customer can buy post card design with customized text in order to buy post cards.-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <title>iCard-Post Card</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- use google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Grandstander&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+  
+  <!-- <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
+  <link rel="stylesheet" href="../styles/basic.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/product.css"> -->
+  
+   <link th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/styles/basic.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet" />
+    <link th:href="@{/styles/product.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div th:replace="views/fragments/header :: header"></div>
+
+  <main>
+   <form action="#" th:action="@{/add_to_cart}"
+		th:object="${item}" method="POST">
+		<input type="hidden" th:field="*{itemId}" id="itemId">
+		<input type="hidden" th:field="*{product}" id="product">
+		<!-- <input type="hidden" name="userId" th:value ="${#authentication.getPrincipal().getUser().getUserId()}"> -->
+		
+    <div class="product-container">
+    
+    <!-- Left Part of Product Page -->
+      <div class="left-column">
+        <div class="card-img">
+          <img th:src="@{${item.product.imagePath}}" alt="product photo">
+        	<!-- <img th:src="@{*{product.imagePath}}" alt="product photo"> -->
+        </div>
+
+        <div class="card-img text-template">
+          <div class="top">Dear XXX,</div>
+          <div class="body">Example: Merry Chrismas!</div>
+          <div class="bottom">Sincerely, ZZ</div>
+        </div>
+      </div>
+      
+      <!-- Right Part of Product Page -->
+      <div class="right-column">
+        <div class="product-description">
+          <h1>Price: $ <span th:text="${item.product.price}"></span></h1>
+          <p>Name: <span th:text="${item.product.productName}"></span></p>
+          <p>Provider: <span th:text="${item.product.provider}"></span></p>
+          <p>Quantity: <input type="number" th:field="*{quantity}" min="1"/>&nbsp;&nbsp;<i class="far fa-heart"></i></p>
+          <!-- <p><i class="far fa-heart"></i></p> -->
+        </div>
+
+        <!-- <form action=""> -->
+          <div class="customize">
+            
+            <div class="custom-theme" id="text-color">
+              <span>Text Color:</span>
+              <input type="radio" id="black" th:field="*{textColor}" th:value="Black">
+              <label for="black">Black</label>
+              <input type="radio" id="blue" th:field="*{textColor}" th:value="Blue">
+              <label for="blue">Blue</label>
+              <input type="radio" id="purple" th:field="*{textColor}" th:value="Purple">
+              <label for="purple">Purple</label>
+            </div>
+                        
+            <div class="custom-theme" id="text-font">
+              <span>Text Font:</span>
+              <input type="radio" id="elegant" th:field="*{textFont}" th:value="Elegant">
+              <label for="elegant">Elegant</label>
+              <input type="radio" id="cute" th:field="*{textFont}" th:value="Cute">
+              <label for="cute">Cute</label>
+              <input type="radio" id="lively" th:field="*{textFont}" th:value="Lively">
+              <label for="lively">Lively</label>
+            </div>
+
+            <div class="custom-text">
+              <fieldset>
+                <legend>Words printed on your card</legend>
+                <input type="text" id="custom-top" th:field="*{customTop}" size="50" placeholder="Dear XXX(max:50)," maxlength="50"/>
+                <textarea id="custom-body" th:field="*{customBody}" rows="8" cols="55" placeholder="Example: Merry Chrismas!(max:280)" maxlength="280"></textarea>
+                <input id="custom-bottom" type="text" th:field="*{customBottom}" size="50" class="bottom" placeholder="Sincerely, ZZ(max:50)" maxlength="50">
+                
+              
+              </fieldset>
+              <!-- <a href="#" class="how">How to customize your post cards</a> -->
+
+              <div class="buttons">
+                <button type="button" class="preview-btn">Preview</button>
+                <!-- <a href="cart.html"><button type="button" class="cart-btn">Add to cart</button></a> -->
+                <button type="submit" class="cart-btn">Add to cart</button>
+              </div>
+
+
+            </div>
+          </div>
+        <!-- </form> -->
+      </div>
+    </div>
+</form>
+  </main>
+
+  <!-- <script src="../js/product.js"></script> -->
+  <script th:src="@{/js/product.js}"></script>
+</body>
+
+</html>
