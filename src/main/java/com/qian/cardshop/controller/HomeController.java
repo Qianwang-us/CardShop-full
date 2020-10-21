@@ -55,20 +55,29 @@ public class HomeController {
 		
 		// TODO: need to review!!!!!!!!!!!
 		
-		
+		String email = null;
 		try {
-			String email = SecurityUtils.getUserName();
-			
-			if(email != null) {
-				User user = userService.findByEmail(email).get();
-				session.setAttribute("currentUser", user);
-				logger.trace("HomeController, path(/), user: " + user);
-			}
+			email = SecurityUtils.getUserName();						
 
 		}catch(Exception e) {
 			//e.printStackTrace();
-			System.out.println("Home Controller: Wrong with SecurityUtils.getUserName() ");
+			logger.warn("Home Controller: Wrong with SecurityUtils.getUserName() ");
 		}
+		
+		// use case: user login, redirect to home page, session currentUser is not set yet
+		try {
+			if(email != null && session.getAttribute("currentUser") == null) {
+				User user = userService.findByEmail(email).get();
+				session.setAttribute("currentUser", user);
+				logger.trace("index, path(/), user: " + user);
+			}
+		}catch(Exception e) {
+			//e.printStackTrace();
+			logger.warn("index: Wrong with session ");
+		}
+		
+		
+		// use case: user login 
 		
 		List<Product> product = productService.findAll();
 		model.addAttribute("products", product);
@@ -150,8 +159,28 @@ public class HomeController {
 	}
 
 	@GetMapping("/product/{productId}")
-	public String viewProduct(@PathVariable("productId") int productId, Model model) {
+	public String viewProduct(@PathVariable("productId") int productId, Model model, HttpSession session) {
+		String email = null;
+		try {
+			email = SecurityUtils.getUserName();						
 
+		}catch(Exception e) {
+			//e.printStackTrace();
+			logger.warn("viewProduct: Wrong with SecurityUtils.getUserName() ");
+		}
+		
+		// use case: user login, redirect to home page, session currentUser is not set yet
+		try {
+			if(email != null && session.getAttribute("currentUser") == null) {
+				User user = userService.findByEmail(email).get();
+				session.setAttribute("currentUser", user);
+				logger.trace("HomeController, path(/), user: " + user);
+			}
+		}catch(Exception e) {
+			//e.printStackTrace();
+			logger.warn("viewProduct: Wrong with session ");
+		}
+		
 		Optional<Product> tempProduct = productService.findById(productId);
 
 		if (tempProduct.isEmpty()) {
