@@ -60,34 +60,19 @@ public class CartController {
 
 		User user = null;
 		Cart tempCart = null;
-//		try {
-//		//User 
-//		user = (User)session.getAttribute("currentUser");
-//		logger.trace("addToCart, user: " + user);
-//		
-//		//Cart 
-//		tempCart = user.getCustomer().getCart();
-//		} catch(Exception e) {
-//			redirectAttributes.addAttribute("message", "Your session has expired, please login again.");
-//			return "redirect:/login";
-//		}
 
 		try {
 			String email = SecurityUtils.getUserName();
 			
 			if(email != null) {
 				user = userService.findByEmail(email).get();
-				//session.setAttribute("currentUser", user);
 				logger.trace("CartController, path(/), user: " + user);
 			}
-//				User user = userService.findByEmail().get();
-//				if(user.getEmail()!=null) {
-//					session.setAttribute("currentUser", user);
+				
 			}catch(Exception e) {
-				//e.printStackTrace();
 				logger.error("Cart Controller: Wrong with SecurityUtils.getUserName() ");
 			}
-		//user = userService.findById(userId).get();
+		
 		tempCart = user.getCustomer().getCart();
 		
 		// edit item, and then add to cart
@@ -111,12 +96,33 @@ public class CartController {
 	}
 
 	@GetMapping("/view_cart")
-	public String viewCart(@RequestParam("cartId") int cartId, Model model) {
-		Optional<Cart> cart = cartService.findById(cartId);
-		if (cart.isEmpty()) {
-			throw new RuntimeException("cart id: "+cartId+" is not found!");
+	public String viewCart(@RequestParam(required=false) Integer cartId, Model model) {
+		User user = null;
+		Cart tempCart = null;
+		
+		if(cartId==null) {
+			try {
+				String email = SecurityUtils.getUserName();
+				
+				if(email != null) {
+					user = userService.findByEmail(email).get();
+					logger.trace("CartController, path(/), user: " + user);
+				}
+					
+				}catch(Exception e) {
+					logger.error("Cart Controller: Wrong with SecurityUtils.getUserName() ");
+				}
+			
+			tempCart = user.getCustomer().getCart();
+		}else {
+			Optional<Cart> cart = cartService.findById(cartId);
+			if (cart.isEmpty()) {
+				throw new RuntimeException("cart id: "+cartId+" is not found!");
+			}
+			tempCart = cart.get();
 		}
-		Cart tempCart = cart.get();
+		
+		
 		model.addAttribute("cart", tempCart);
 		
 		Double itemsTotal = PaymentSummary.calculateItemsTotal(tempCart.getCartItems());
