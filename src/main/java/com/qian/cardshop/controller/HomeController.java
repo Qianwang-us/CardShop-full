@@ -54,17 +54,17 @@ public class HomeController {
 	public String index(HttpSession session, Model model) {
 		
 		// TODO: need to review!!!!!!!!!!!
-		try {
-		String email = SecurityUtils.getUserName();
 		
-		if(email != null) {
-			User user = userService.findByEmail(email).get();
-			session.setAttribute("currentUser", user);
-			logger.trace("HomeController, path(/), user: " + user);
-		}
-//			User user = userService.findByEmail().get();
-//			if(user.getEmail()!=null) {
-//				session.setAttribute("currentUser", user);
+		
+		try {
+			String email = SecurityUtils.getUserName();
+			
+			if(email != null) {
+				User user = userService.findByEmail(email).get();
+				session.setAttribute("currentUser", user);
+				logger.trace("HomeController, path(/), user: " + user);
+			}
+
 		}catch(Exception e) {
 			//e.printStackTrace();
 			System.out.println("Home Controller: Wrong with SecurityUtils.getUserName() ");

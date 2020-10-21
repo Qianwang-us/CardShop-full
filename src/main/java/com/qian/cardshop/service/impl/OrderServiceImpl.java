@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.qian.cardshop.dao.OrderRepository;
+import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.model.Order;
 import com.qian.cardshop.service.OrderService;
 
@@ -37,6 +38,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteById(Integer id) {
 		orderRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Order> getOrderHistory(Customer customer) {
+		return orderRepository.findTop30ByCustomerOrderByCreatedOnDesc(customer);
 	}
 
 }

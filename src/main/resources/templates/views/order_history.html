@@ -26,39 +26,41 @@
         <caption>Recent Orders</caption>
         <tr>
           <th>Order ID</th>
-          <th>Order Date/Time</th>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Custom Text</th>
+          <th>Order Date/Time</th>          
           <th>Shipping Address</th>
+          <th>OrderTotal</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
+        
+      <!--  <tr> 
+        <tr th:each="prod : ${prods}">
+        <td th:text="${prod.name}">Onions</td>
+        <td th:text="${prod.price}">2.41</td>
+        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+      </tr> -->
 
         <!-- template for one order item -->
-        <tr class="order-item">
-          <td>A1000001</td>
-          <td>2020-08-10, 13:20</td>
-          <td><a href="product.html">Chrismas Tower</a></td>
-          <td>1</td>
+        <tr class="order-item" th:each="order : ${orders}">
+          <td th:text="${order.orderId}">A1000001</td>
+          <td th:text="${order.createdOn}">2020-08-10, 13:20</td>         
           <td>
             <details>
-              <summary>Details</summary>
-              custom top: Dear An,<br>
-              custom body: Merry Chrismas!<br>
-              custom bottom: Sincerely, Qian
+              <summary>Shipping Address</summary>
+              <address>
+			      <span th:text="${order.receiver.firstName} +' '+ ${order.receiver.lastName}"></span><br>
+			      <span th:text="${order.receiver.addressLine1}"></span><br>      
+			      <span th:text="${order.receiver.addressLine2}"></span><br>     
+			      <span th:text="${order.receiver.city}"></span>,&nbsp;
+			      <span th:text="${order.receiver.state}"></span>&nbsp;
+			      <span th:text="${order.receiver.zipCode}"></span><br>
+			      Phone: <span th:text="${order.receiver.phone}"></span>
+			  </address>
             </details>
           </td>
-          <td>
-            <details>
-              <summary>Details</summary>
-              Qian<br>
-              10 Persholas ST APT 10<br>
-              BOSTON, MA 02130<br>
-              United States<br>
-              Phone: 6170009999
-            </details>
-          </td>
-          <td>Created</td>
+          <td th:text="${order.orderTotal}"></td>
+          <td th:text="${order.orderStatus}"></td>
+          <td><a href="@{/order/view_order/orderId(orderId=${order.orderId})}">Details</a></td>
         </tr>
 
         

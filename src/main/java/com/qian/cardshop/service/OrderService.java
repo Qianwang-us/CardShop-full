@@ -3,6 +3,7 @@ package com.qian.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.model.Order;
 
 public interface OrderService {
@@ -13,4 +14,6 @@ public interface OrderService {
 	public void save(Order order);
 
 	public void deleteById(Integer id);
+	
+	public List<Order> getOrderHistory(Customer customer);
 }

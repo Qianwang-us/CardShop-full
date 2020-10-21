@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,10 +21,13 @@ import com.qian.cardshop.model.CustomerDetail;
 import com.qian.cardshop.model.Item;
 import com.qian.cardshop.model.Order;
 import com.qian.cardshop.model.Receiver;
+import com.qian.cardshop.model.User;
+import com.qian.cardshop.security.SecurityUtils;
 import com.qian.cardshop.service.CartService;
 import com.qian.cardshop.service.CustomerDetailService;
 import com.qian.cardshop.service.ItemService;
 import com.qian.cardshop.service.OrderService;
+import com.qian.cardshop.service.UserService;
 import com.qian.cardshop.util.PaymentSummary;
 
 /**
@@ -37,21 +41,31 @@ import com.qian.cardshop.util.PaymentSummary;
 @RequestMapping("/order")
 public class OrderController {
 	
+	@Autowired
 	OrderService orderService;
+	
+	@Autowired
 	CartService cartService;
+	
+	@Autowired
 	CustomerDetailService customerDetailService;
+	
+	@Autowired
 	ItemService itemService;
+	
+	@Autowired
+	UserService userService;
 	
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	public OrderController(OrderService orderService, CartService cartService, CustomerDetailService customerDetailService, ItemService itemService) {
-		this.orderService = orderService;
-		this.cartService = cartService;
-		this.customerDetailService = customerDetailService;
-		this.itemService = itemService;
-	}
+//	@Autowired
+//	public OrderController(OrderService orderService, CartService cartService, CustomerDetailService customerDetailService, ItemService itemService) {
+//		this.orderService = orderService;
+//		this.cartService = cartService;
+//		this.customerDetailService = customerDetailService;
+//		this.itemService = itemService;
+//	}
 	
 	/**
 	 * part of checkout process. After customer viewed the cart, user go to shipping address page for order delivering through this method
@@ -175,8 +189,6 @@ public class OrderController {
 			return "views/error";
 			//throw new RuntimeException("errorMsg");
 		}
-		
-		
 		
 		// save the new address as customer personal address		
 		if(save) {
@@ -306,8 +318,40 @@ public class OrderController {
 	 * @return
 	 */
 	@GetMapping("/order_history")
-	public String showOrderHistory() {
+	public String showOrderHistory(Model model) {
+		
+		User user = null;
+
+		try {
+			String email = SecurityUtils.getUserName();
+			
+			if(email != null) {
+				user = userService.findByEmail(email).get();
+				logger.trace("OrderController, path(/), user: " + user);
+			}
+				
+			}catch(Exception e) {
+				logger.error("OrderController: Wrong with SecurityUtils.getUserName() ");
+			}
+		
+		Customer tempCustomer = user.getCustomer();
+		
+		List<Order> orders = orderService.getOrderHistory(tempCustomer);
+		
+		model.addAttribute("orders", orders);
+		
+		logger.trace("showOrderHistory, customer: " + tempCustomer);
+		logger.trace("showOrderHistory, orders: " + orders);
+		
 		return "views/order_history";
 	}
+	
+	@GetMapping("/view_order/{orderId}")
+	public String viewOrder(@PathVariable int orderId, Model model) {
+		
+		// TODO: pass the order to view, show details
+		return "views/order";
+	}
+	
 
 }
