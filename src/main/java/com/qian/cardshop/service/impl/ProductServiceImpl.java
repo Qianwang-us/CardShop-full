@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.qian.cardshop.dao.ProductRepository;
-import com.qian.cardshop.entity.Category;
-import com.qian.cardshop.entity.Product;
+import com.qian.cardshop.model.Category;
+import com.qian.cardshop.model.Product;
 import com.qian.cardshop.service.ProductService;
 
 @Service

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.qian.cardshop.dao.CustomerRepository;
-import com.qian.cardshop.entity.Customer;
+import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.service.CustomerService;
 
 @Service

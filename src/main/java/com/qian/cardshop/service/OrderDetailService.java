@@ -3,7 +3,7 @@ package com.qian.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.qian.cardshop.entity.OrderDetail;
+import com.qian.cardshop.model.OrderDetail;
 
 public interface OrderDetailService {
 	public List<OrderDetail> findAll();

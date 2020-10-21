@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.qian.cardshop.entity.Category;
-import com.qian.cardshop.entity.Product;
+import com.qian.cardshop.model.Category;
+import com.qian.cardshop.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 

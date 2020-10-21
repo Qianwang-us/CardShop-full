@@ -9,40 +9,44 @@
 <body>
   <header th:fragment="header">
     <!-- header top -->
-    <div class="header-top-container">
-      <div class="login">
-        <a href="@{/order_fulfillment}"><i class="fas fa-user-cog"></i></a>
-      </div>
-      <div class="cart">
-        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
-      </div>
-      <div class="login">
-        <a th:href="@{/order/order_history}">Orders</a>
-      </div>
-      
-      <th:block th:if="${session.currentUser} == null">
-      	<div class="login">
-        	<a th:href="@{/login}">Login</a>
-        </div>
-      </th:block>
-      
-      <!-- <th:block th:if="${session.currentUser} != null">
-      <div class="login">
-      Welcome, <span th:text="${session.currentUser.firstName}"></span>     	
+    
+	  <div class="header-top-container">
+	    <th:block th:if="${session.currentUser} != null">
+	      <div class="login">
+	        <a href="@{/order_fulfillment}"><i class="fas fa-user-cog"></i></a>
+	      </div>
+	      <div class="cart">
+	        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
+	      </div>
+	      <div class="login">
+	        <a th:href="@{/order/order_history}">Orders</a>
+	      </div>
+	      <div class="login">
+      			Welcome, <span th:text="${session.currentUser.firstName}"></span>     	
         	<a th:href="@{/logout}">Logout</a>
-        </div>
-      </th:block> -->
+          </div>        
+      	</th:block>
       
-      <div sec:authorize="isAuthenticated()">
-      	<div class="login">
-      		<!-- Welcome, <input name="username" type="text" value="${sec.username()}" style="color:red;" />
-      		<span th:text="${sec.username()}" style="color:green;"></span>  -->    		
-      		<span sec:authentication="name" style="color:blue;"></span></div>  	
-        	<a th:href="@{/logout}">Logout</a>
-        </div>
-      </div>
+	      <th:block th:if="${session.currentUser} == null">
+	      	<div class="login">
+	        	<a th:href="@{/login}">Login</a>
+	        </div>
+	      </th:block>
       
-    </div>
+	      
+      
+	      <!-- <div sec:authorize="isAuthenticated()">
+	      	<div class="login">
+	      		Welcome, <input name="username" type="text" value="${sec.username()}" style="color:red;" />
+	      		<span th:text="${sec.username()}" style="color:green;"></span>     		
+	      		<span sec:authentication="name" style="color:blue;"></span>
+	      	</div>  	
+	        	<a th:href="@{/logout}">Logout</a>
+	      </div> -->
+	 </div>
+      
+    
+    
     <!-- header menu bar -->
     <div class="header-menu-container">
       <div class="menu-item-logo">
@@ -80,6 +84,8 @@
         </ul>
       </nav>
     </div>
+    
+   <!--  tagline part -->
     <div class="tagline">
   <p>Customize your cards with your own words to your special one</p>
     </div>

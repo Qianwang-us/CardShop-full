@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.qian.cardshop.dao.UserRepository;
-import com.qian.cardshop.entity.User;
+import com.qian.cardshop.model.User;
 import com.qian.cardshop.security.SecurityConfiguration;
 import com.qian.cardshop.service.UserService;
 

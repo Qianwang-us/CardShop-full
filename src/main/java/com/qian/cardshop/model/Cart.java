@@ -1,4 +1,4 @@
-package com.qian.cardshop.entity;
+package com.qian.cardshop.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -3,8 +3,8 @@ package com.qian.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.qian.cardshop.entity.Category;
-import com.qian.cardshop.entity.Product;
+import com.qian.cardshop.model.Category;
+import com.qian.cardshop.model.Product;
 
 
 public interface ProductService {

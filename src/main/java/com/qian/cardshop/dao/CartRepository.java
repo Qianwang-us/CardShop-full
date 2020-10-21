@@ -2,7 +2,7 @@ package com.qian.cardshop.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.qian.cardshop.entity.Cart;
+import com.qian.cardshop.model.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 

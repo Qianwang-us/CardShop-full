@@ -3,7 +3,7 @@ package com.qian.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.qian.cardshop.entity.Customer;
+import com.qian.cardshop.model.Customer;
 
 public interface CustomerService {
 	public List<Customer> findAll();

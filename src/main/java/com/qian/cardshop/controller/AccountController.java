@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.qian.cardshop.entity.Customer;
-import com.qian.cardshop.entity.User;
+import com.qian.cardshop.model.Customer;
+import com.qian.cardshop.model.User;
 import com.qian.cardshop.service.UserService;
 
 @Controller

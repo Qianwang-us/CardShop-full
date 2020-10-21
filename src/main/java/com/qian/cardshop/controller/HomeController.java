@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.qian.cardshop.entity.Category;
-import com.qian.cardshop.entity.Item;
-import com.qian.cardshop.entity.Product;
-import com.qian.cardshop.entity.User;
 import com.qian.cardshop.exceptions.ProductNotFoundException;
+import com.qian.cardshop.model.Category;
+import com.qian.cardshop.model.Item;
+import com.qian.cardshop.model.Product;
+import com.qian.cardshop.model.User;
 import com.qian.cardshop.security.SecurityUtils;
 import com.qian.cardshop.service.CategoryService;
 import com.qian.cardshop.service.ProductService;

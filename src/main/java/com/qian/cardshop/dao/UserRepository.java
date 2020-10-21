@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.qian.cardshop.entity.User;
+import com.qian.cardshop.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 

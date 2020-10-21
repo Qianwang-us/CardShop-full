@@ -3,7 +3,7 @@ package com.qian.cardshop.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qian.cardshop.entity.Item;
+import com.qian.cardshop.model.Item;
 
 /**
  * this class helps to calculate payment information when placing the order

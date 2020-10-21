@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.qian.cardshop.entity.Cart;
-import com.qian.cardshop.entity.Customer;
-import com.qian.cardshop.entity.CustomerDetail;
-import com.qian.cardshop.entity.Item;
-import com.qian.cardshop.entity.Order;
-import com.qian.cardshop.entity.Receiver;
+import com.qian.cardshop.model.Cart;
+import com.qian.cardshop.model.Customer;
+import com.qian.cardshop.model.CustomerDetail;
+import com.qian.cardshop.model.Item;
+import com.qian.cardshop.model.Order;
+import com.qian.cardshop.model.Receiver;
 import com.qian.cardshop.service.CartService;
 import com.qian.cardshop.service.CustomerDetailService;
 import com.qian.cardshop.service.ItemService;
 import com.qian.cardshop.service.OrderService;
 import com.qian.cardshop.util.PaymentSummary;
 
-
+/**
+ * Controller which contains methods in checkout process and order related functions
+ * 
+ * @author qianwang
+ *
+ */
 
 @Controller
 @RequestMapping("/order")
@@ -48,6 +53,13 @@ public class OrderController {
 		this.itemService = itemService;
 	}
 	
+	/**
+	 * part of checkout process. After customer viewed the cart, user go to shipping address page for order delivering through this method
+	 * 
+	 * @param cartId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/shipping_address")
 	public String addShippingAddress(@RequestParam("cartId") int cartId, Model model) {
 		CustomerDetail customerDetail = null;
@@ -81,17 +93,27 @@ public class OrderController {
 	}
 	
 	
-	
+	/**
+	 * part of checkout process, use this method when user decides to use current address stored in customer details as order delivery address
+	 * copy the address in customer details to receiver and pass it on to view
+	 * calculate payment info and pass it on to view
+	 * 
+	 * @param cartId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/checkout")
 	public String checkOutWithCurrentAddress(@RequestParam("cartId") int cartId, Model model) {
 		logger.trace("Enter method: checkOutWithCurrentAddress");
+		
+		// retrieve address in customer details and save it to receiver
+		
 		Customer customer = null;
 		Cart cart = null;
 		
 		try {
 			cart = cartService.findById(cartId).get();
 			customer = cart.getCustomer();
-			
 					
 		}catch(Exception e) {
 			String errorMsg = "no cart or customer is found!";
@@ -103,11 +125,14 @@ public class OrderController {
 		
 		Receiver receiver = new Receiver(customer);
 		
+		
+		// save these info below to view which will be used for order creation
 		model.addAttribute("receiver", receiver);
 		model.addAttribute("cartId", cartId);
 		model.addAttribute("cart", cart);
 		model.addAttribute("billingAddressType", "CUSTOMER");
 		
+		//calculate payment info and pass it on to view	
 		ArrayList<Double> payment = PaymentSummary.calculatePayment(cart.getCartItems());
 		model.addAttribute("itemsTotal", payment.get(0));
 		model.addAttribute("shipping", payment.get(1));
@@ -121,10 +146,23 @@ public class OrderController {
 		return "views/checkout";
 	}
 	
+	/**
+	 * part of checkout process, use this method when user decides to use new entered address as order delivery address. 
+	 * if user checked the save to personal address checkbox, the address is saved to customer details and will override the old one if it exists
+	 * calculate payment info and pass it on to view
+	 * 
+	 * @param receiver
+	 * @param cartId
+	 * @param billingAddressType
+	 * @param save
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/checkout")
 	public String checkOutWithNewAddress(@ModelAttribute("receiver") Receiver receiver, @RequestParam("cartId") int cartId, @RequestParam("billingAddressType") String billingAddressType, @RequestParam("save") boolean save, Model model) {
 		logger.trace("Enter method: checkOutWithNewAddress");
 		
+		//retrieve cart information for getting customer later on
 		Cart cart = null;
 		
 		try {
@@ -140,8 +178,7 @@ public class OrderController {
 		
 		
 		
-		// save the new address as customer personal address
-		
+		// save the new address as customer personal address		
 		if(save) {
 			CustomerDetail customerDetail = null;
 			Customer customer = null;
@@ -169,11 +206,13 @@ public class OrderController {
 			logger.trace("customerDetail: "+ customerDetail);
 		}
 		
+		// save these info below to view which will be used for order creation
 		model.addAttribute("receiver", receiver);
 		model.addAttribute("cartId", cartId);
 		model.addAttribute("cart", cart);
 		model.addAttribute("billingAddressType", billingAddressType);
 		
+		//calculate payment info and pass it on to view	
 		ArrayList<Double> payment = PaymentSummary.calculatePayment(cart.getCartItems());
 		model.addAttribute("itemsTotal", payment.get(0));
 		model.addAttribute("shipping", payment.get(1));
@@ -189,18 +228,28 @@ public class OrderController {
 		return "views/checkout";
 	}
 	
+	/**
+	 * 
+	 * Create order with cart items and return order confirmation with order id and created date. Clear items in the cart.
+	 * 
+	 * @param receiver
+	 * @param cartId
+	 * @param billingAddressType
+	 * @param itemsTotal
+	 * @param shipping
+	 * @param tax
+	 * @param orderTotal
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/create_order")
 	public String createOrder(@ModelAttribute("receiver") Receiver receiver, 
-			//@ModelAttribute("cart") Cart cart, 
 			@RequestParam("cartId") int cartId,
-			//@ModelAttribute("billingAddressType") String billingAddressType, 
 			@RequestParam("billingAddressType") String billingAddressType,
 			@RequestParam("itemsTotal") double itemsTotal,
 			@RequestParam("shipping") double shipping,
 			@RequestParam("tax") double tax,
 			@RequestParam("orderTotal") double orderTotal,
-			//@ModelAttribute("itemsTotal") Double itemsTotal, @ModelAttribute("shipping") Double shipping, 
-			//@ModelAttribute("tax") Double tax, @ModelAttribute("orderTotal") Double orderTotal,
 			Model model) {
 		
 		logger.trace("Enter method: createOrder");
@@ -227,14 +276,20 @@ public class OrderController {
 			//throw new RuntimeException("errorMsg");
 		}
 		
+		// create order
 		Order tempOrder = new Order(customer, receiver, billingAddressType, itemsTotal, shipping, tax, orderTotal);				
 		List<Item> items = cart.getCartItems();
+		
+		// clear the cart first to avoid shared collection exception
 		cart.clear();
 		cartService.save(cart);
 		orderService.save(tempOrder);
 		tempOrder.setOrderItems(items);
+		// update and save item with new order id info
 		items.forEach(item -> itemService.save(item));
 		
+		
+		// pass order id and created date to view
 		model.addAttribute("orderId", tempOrder.getOrderId());
 		model.addAttribute("createdOn", tempOrder.getCreatedOn());
 		
@@ -246,6 +301,10 @@ public class OrderController {
 		return "views/order_confirm";
 	}
 	
+	/**
+	 * show order history of the customer when customer clicks 'orders' in the header
+	 * @return
+	 */
 	@GetMapping("/order_history")
 	public String showOrderHistory() {
 		return "views/order_history";

@@ -3,8 +3,8 @@ package com.qian.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.qian.cardshop.entity.Category;
-import com.qian.cardshop.entity.User;
+import com.qian.cardshop.model.Category;
+import com.qian.cardshop.model.User;
 
 public interface UserService {
 	public List<User> findAll();

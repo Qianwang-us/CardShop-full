@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.qian.cardshop.controller.HomeController;
 import com.qian.cardshop.dao.ProductRepository;
-import com.qian.cardshop.entity.Product;
+import com.qian.cardshop.model.Product;
 
 @SpringBootTest
 class CardShopApplicationTests {	
