@@ -349,7 +349,10 @@ public class OrderController {
 	@GetMapping("/view_order/{orderId}")
 	public String viewOrder(@PathVariable int orderId, Model model) {
 		
-		// TODO: pass the order to view, show details
+		Order order = orderService.findById(orderId).get();
+		
+		model.addAttribute("order", order);
+		// pass the order to view, show details
 		return "views/order";
 	}
 	

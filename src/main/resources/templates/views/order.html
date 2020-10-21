@@ -22,33 +22,36 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <div class="checkout-process">
-    SIGN IN &gt; SHIPPING &gt; <strong>PLACE ORDER</strong>
+    Order Details
   </div>
-
+  <div>
+    <a th:href="@{/order/order_history}">Back to Order History</a>
+  </div>
+  
   <main id="top" >
-    <!-- <form action=""> -->
       <div class="shopping-cart">
+      
+      <!-- left part to show order shipping and items -->
         <div class="left-column">
-          <h2>Review your order</h2>
+          <h2>Your order</h2>
+          
+          <!-- top area: shipping address / payment / billing -->
           <div class="address-payment">
             <div>
-
-              <th:block th:if="${receiver != null}">
               	<h3>Shipping address</h3>
 			  	<address>
-			      <span th:text="${receiver.firstName}+' '+${receiver.lastName}"></span><br>
-			      <span th:text="${receiver.addressLine1}"></span><br>      
-			      <span th:text="${receiver.addressLine2}"></span><br>     
-			      <span th:text="${receiver.city}"></span>,&nbsp;
-			      <span th:text="${receiver.state}"></span>&nbsp;
-			      <span th:text="${receiver.zipCode}"></span><br>
-			      Phone: <span th:text="${receiver.phone}"></span>
+			      <span th:text="${order.receiver.firstName}+' '+${order.receiver.lastName}"></span><br>
+			      <span th:text="${order.receiver.addressLine1}"></span><br>      
+			      <span th:text="${order.receiver.addressLine2}"></span><br>     
+			      <span th:text="${order.receiver.city}"></span>,&nbsp;
+			      <span th:text="${order.receiver.state}"></span>&nbsp;
+			      <span th:text="${order.receiver.zipCode}"></span><br>
+			      Phone: <span th:text="${order.receiver.phone}"></span>
 			    </address>			    
-			  </th:block>
             </div>
             <div class="payment-method">
               <h3>Payment method</h3>
-              <div>Paypal</div>
+              <div><span th:text="${order.paymentMethod}"></span></div>
             </div>
             <div>
               <h3>Billing address</h3>
@@ -57,8 +60,8 @@
           </div>
         
  
-		<!-- for each item in the cart -->
-          <div class="item" th:each="tempItem : ${cart.cartItems}">
+		<!-- bottom area: for each item in the order -->
+          <div class="item" th:each="tempItem : ${order.orderItems}">
 
             <div class="card-img">
               <img th:src="@{${tempItem.product.imagePath}}" alt="product photo" />
@@ -69,10 +72,6 @@
               <div>Provider: <span th:text="${tempItem.product.provider}"></span></div>
 
               <div>Quantity: <span th:text="${tempItem.quantity}"></span></div>
-              
-             <!--  <div><a th:href="@{/edit_item(itemId=${tempItem.itemId})}">Update</a></div>
-              
-              <div><a th:href="@{/remove_from_cart(itemId=${tempItem.itemId})}">Delete</a></div> -->
             </div>
 
             <div class="custom-text">
@@ -87,57 +86,32 @@
             </div>
             <div>Price: $<span class="price"><span th:text="${tempItem.product.price}"></span></span></div>
           </div>  
-          
         </div>
-
+        
+		<!-- right part for displaying order summary -->
         <div class="right-column">
-           <!-- <a th:href="@{/order/create_order}"><button class="place-order-btn" type="button">Place Your Order</button></a> --> 
-          
-          <form action="#" th:action="@{/order/create_order}" th:object="${receiver}" method="POST">
-          
-		    <input type="hidden" th:field="*{firstName}">
-		    <input type="hidden" th:field="*{lastName}">
-          	<input type="hidden" th:field="*{addressLine1}">
-          	<input type="hidden" th:field="*{addressLine2}">
-          	<input type="hidden" th:field="*{city}">
-          	<input type="hidden" th:field="*{state}">
-          	<input type="hidden" th:field="*{zipCode}">
-          	<input type="hidden" th:field="*{phone}">
-          	<input type="hidden" name="cartId" th:value="${cartId}">
-          	<input type="hidden" name="billingAddressType" th:value="${billingAddressType}">
-          	<input type="hidden" name="itemsTotal" th:value="${itemsTotal}">
-          	<input type="hidden" name="shipping" th:value="${shipping}">
-          	<input type="hidden" name="tax" th:value="${tax}">
-          	<input type="hidden" name="orderTotal" th:value="${orderTotal}">
-          	<div><button class="place-order-btn" type="submit">Place Your Order</button></div>
-          </form>
-          
           <table id="order-summary">
             <caption>Order Summary</caption>
             <tr>
               <td>Items</td>
-              <td>$<span th:text="${itemsTotal}"></span></td>
+              <td>$<span th:text="${order.itemsTotal}"></span></td>
             </tr>
             <tr>
               <td>Shipping &amp; handling</td>
-              <td>$<span th:text="${shipping}"></span></td>
+              <td>$<span th:text="${order.shipping}"></span></td>
             </tr>
             <tr >
               <td class="bottom-line">Estimated tax to be collected:</td>
-              <td class="bottom-line">$<span th:text="${tax}"></span></td>
+              <td class="bottom-line">$<span th:text="${order.tax}"></span></td>
             </tr>
             <tr class="order-total">
               <td>Order total:</td>
-              <td>$<span th:text="${orderTotal}"></span></td>
+              <td>$<span th:text="${order.orderTotal}"></span></td>
             </tr>
           </table>
-
-          <!-- <div class="bottom"><a href="#top">Back to top</a></div> -->
         </div>
+        
       </div>
-   <!--  </form> -->
   </main>
-  <!-- <script src="../js/checkout.js"></script> -->
-  <!-- <script th:src="@{/js/checkout.js}"></script> -->
 </body>
 </html>
