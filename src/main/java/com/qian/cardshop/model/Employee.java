@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +17,9 @@ public class Employee{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="employee_id")
 	private Integer employeeId;
+	
+	@OneToOne(mappedBy="employee")
+	private User user;
 	
 	
 	public Employee() {}
@@ -31,6 +34,18 @@ public class Employee{
 
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

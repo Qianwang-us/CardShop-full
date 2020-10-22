@@ -5,7 +5,7 @@
 <html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8">
-  <title>iCard-Checkout</title>
+  <title>iCard-Order Detail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- use google font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -21,19 +21,24 @@
 <body>
   <div th:replace="views/fragments/header :: header"></div>
 
-  <div class="checkout-process">
+  <!-- <div class="checkout-process">
     Order Details
-  </div>
-  <div>
+  </div> -->
+  <!-- <div>
     <a th:href="@{/order/order_history}">Back to Order History</a>
-  </div>
+  </div> -->
   
   <main id="top" >
       <div class="shopping-cart">
       
       <!-- left part to show order shipping and items -->
         <div class="left-column">
-          <h2>Your order</h2>
+          <h2>Order Details</h2>
+          <div>
+          	Order ID: <span th:text="${order.orderId}"></span><br>
+          	Order Date/Time: <span th:text="${order.createdOn}"></span><br>
+          	Order Status: <span th:text="${order.orderStatus}"></span>
+          </div>
           
           <!-- top area: shipping address / payment / billing -->
           <div class="address-payment">
@@ -93,7 +98,7 @@
 		<!-- right part for displaying order summary -->
         <div class="right-column">
           <table id="order-summary">
-            <caption>Order Summary</caption>
+            <caption>Payment Summary</caption>
             <tr>
               <td>Items</td>
               <td>$<span th:text="${order.itemsTotal}"></span></td>

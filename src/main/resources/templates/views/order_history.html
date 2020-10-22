@@ -54,7 +54,7 @@
           </td>
           <td th:text="${order.orderTotal}"></td>
           <td th:text="${order.orderStatus}"></td>
-          <td><a th:href="@{/order/view_order/{orderId}(orderId=${order.orderId})}">Details</a></td>
+          <td><a th:href="@{/order/view_order/{orderId}(orderId=${order.orderId})}" target="_blank">Details</a></td>
         </tr> 
       </table>
     </main>

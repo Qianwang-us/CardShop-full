@@ -355,6 +355,5 @@ public class OrderController {
 		// pass the order to view, show details
 		return "views/order";
 	}
-	
 
 }

@@ -12,15 +12,24 @@
     
 	  <div class="header-top-container">
 	    <th:block th:if="${session.currentUser} != null">
-	      <div class="login">
-	        <a href="@{/order_fulfillment}"><i class="fas fa-user-cog"></i></a>
-	      </div>
-	      <div class="cart">
-	        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
-	      </div>
-	      <div class="login">
-	        <a th:href="@{/order/order_history}">Orders</a>
-	      </div>
+	    	<!-- admin icon displayed for admin -->
+	    	<th:block th:if="${session.role} == 'ROLE_ADMIN'">
+		      <div class="login">
+		        <a th:href="@{/admin/orders}"><i class="fas fa-user-cog"></i></a>
+		      </div>
+		    </th:block>
+		    
+		    <!-- cart, orders displayed for customer  -->
+		    <th:block th:if="${session.role} == 'ROLE_USER'">
+		      <div class="cart">
+		        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
+		      </div>
+		      <div class="login">
+		        <a th:href="@{/order/order_history}">Orders</a>
+		      </div>
+		    </th:block>
+		    
+		    <!-- Welcome message displayed for both roles -->
 	      <div class="login">
       			Welcome, <span th:text="${session.currentUser.firstName}"></span>     	
         	<a th:href="@{/logout}">Logout</a>

@@ -137,6 +137,7 @@ public class User {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+		employee.setUser(this);
 	}
 
 	public String getFirstName() {

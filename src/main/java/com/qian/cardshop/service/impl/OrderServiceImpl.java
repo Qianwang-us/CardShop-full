@@ -2,6 +2,7 @@ package com.qian.cardshop.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,17 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrderHistory(Customer customer) {
 		return orderRepository.findTop30ByCustomerOrderByCreatedOnDesc(customer);
+	}
+
+	@Override
+	public List<Order> findByOrderStatus(String orderStatus) {
+		return orderRepository.findByOrderStatusOrderByCreatedOnAsc(orderStatus);
+	}
+
+	@Override
+	public List<Order> findByOrderIds(Set<Integer> ids) {
+		
+		return orderRepository.findByOrderIds(ids);
 	}
 
 }

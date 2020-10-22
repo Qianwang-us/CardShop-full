@@ -37,7 +37,10 @@
 			<span th:if="${#fields.hasErrors('newUser.uName')}"
 			th:errors="*{newUser.uName}" class="error">Name Error</span>
 		</div> -->
-				
+		<th:block th:if="${message} != null">
+      	<span th:text="${message}"></span>
+      	</th:block>
+      	
         <label for="firstname">First Name</label>
         <input type="text" id="firstname" th:field="*{firstName}">       
 		<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"> 
@@ -56,6 +59,11 @@
         <input type="password" id="password" th:field="*{password}">
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"> 
 		Password is required</span>
+		
+		<th:block th:if="${isEmployee} == true">
+			<label for="passcode">Passcode for employee registration</label>
+			<input type="password" id="passcode" name="passcode">
+		</th:block>
         <button type="submit">CREATE AN ACCOUNT</button>
       </div>
     </form>

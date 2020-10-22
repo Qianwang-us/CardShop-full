@@ -69,6 +69,7 @@ public class HomeController {
 			if(email != null && session.getAttribute("currentUser") == null) {
 				User user = userService.findByEmail(email).get();
 				session.setAttribute("currentUser", user);
+				session.setAttribute("role", user.getRole());
 				logger.trace("index, path(/), user: " + user);
 			}
 		}catch(Exception e) {
@@ -174,6 +175,7 @@ public class HomeController {
 			if(email != null && session.getAttribute("currentUser") == null) {
 				User user = userService.findByEmail(email).get();
 				session.setAttribute("currentUser", user);
+				session.setAttribute("role", user.getRole());
 				logger.trace("HomeController, path(/), user: " + user);
 			}
 		}catch(Exception e) {

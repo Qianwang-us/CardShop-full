@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- use google font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css">
-  <link rel="stylesheet" href="../styles/basic.css">
-  <link rel="stylesheet" href="../styles/header.css">
-  <link rel="stylesheet" href="../styles/order_fulfillment.css">
+  <link rel="stylesheet" href="../fonts/fontawesome-free-5.14.0-web/css/all.css" th:href="@{/fonts/fontawesome-free-5.14.0-web/css/all.css}">
+  <link rel="stylesheet" href="../styles/basic.css" th:href="@{/styles/basic.css}">
+  <link rel="stylesheet" href="../styles/header.css" th:href="@{/styles/header.css}">
+  <link rel="stylesheet" href="../styles/order_fulfillment.css" th:href="@{/styles/order_fulfillment.css}">
   <style>
   </style>
 </head>
@@ -20,149 +20,94 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main>
-    <form action="">
+    <!-- display normal order process sequence referred by employee -->
+    <div class="order-status-chain">
+      Order Process Chain:<br>
+      CREATED &gt; INPROCESS &gt; SHIPPED &gt; COMPLETE
+    </div>
+    
+    <!-- drop down list which enables to show backlog based on order status -->
+    <form action="#" th:action="@{/admin/orders}"
+		 method="get">
       <label for="order_status">Filtered by order status:</label>
       <select name="order_status" id="order_status">
-        <option value="created">Created</option>
-        <option value="in_process">In Process</option>
-        <option value="shipped">Shipped</option>
-        <option value="completed">Completed</option>
-        <option value="cancelled">Cancelled</option>
+        <option th:value="CREATED" selected>Created</option>
+        <option th:value="INPROCESS">In Process</option>
+        <option th:value="SHIPPED">Shipped</option>
+        <option th:value="COMPLETE">Complete</option>
+        <option th:value="CANCELLED">Cancelled</option>
       </select>
+      <button type="submit">Go</button>
     </form>
 
-    <form action="">
+	<!-- display order list -->
+    <form action="#" th:action="@{/admin/update_status}" th:object="${orders}" method="GET"> 
+    	<input type="hidden" name="orderStatus" th:value="${orderStatus}"/>
       <table class="order-list">
-        <tr class="order-item">
-          <td colspan="8">
+        <!-- <tr class="order-item">
+          <td colspan="6">
           </td>
 
           <td>
             <button>Cancel</button>
           </td>
-        </tr>
+        </tr> -->
+        
         <tr>
           <th>Selected</th>
           <th>Order ID</th>
-          <th>Order Date</th>
-          <th>Product ID</th>
-          <th>Quantity</th>
-          <th>Custom Text</th>
+          <th>Order Date/Time</th>          
           <th>Shipping Address</th>
+          <th>OrderTotal</th>
           <th>Status</th>
-          <th>Next Step</th>
+          <th>Action</th>
         </tr>
 
         <!-- template for one order item -->
+        <tr class="order-item" th:each="order : ${orders}">
+          <td>
+            <input type="checkbox" name="orderIdList" th:value="${order.orderId}">
+          </td>
+          <td th:text="${order.orderId}">A1000001</td>
+          <td th:text="${order.createdOn}">2020-08-10, 13:20</td>         
+          <td>
+            <details>
+              <summary>Shipping Address</summary>
+              <address>
+			      <span th:text="${order.receiver.firstName} +' '+ ${order.receiver.lastName}"></span><br>
+			      <span th:text="${order.receiver.addressLine1}"></span><br>      
+			      <span th:text="${order.receiver.addressLine2}"></span><br>     
+			      <span th:text="${order.receiver.city}"></span>,&nbsp;
+			      <span th:text="${order.receiver.state}"></span>&nbsp;
+			      <span th:text="${order.receiver.zipCode}"></span><br>
+			      Phone: <span th:text="${order.receiver.phone}"></span>
+			  </address>
+            </details>
+          </td>
+          <td th:text="${order.orderTotal}"></td>
+          <td th:text="${order.orderStatus}"></td>
+          <td><a th:href="@{/order/view_order/{orderId}(orderId=${order.orderId})}" target="_blank">Details</a></td>
+        </tr> 
+               
         <tr class="order-item">
-          <td>
-            <input type="checkbox" name="order_item" value="order_id,product_id">
-          </td>
-          <td>A1000001</td>
-          <td>2020-08-10</td>
-          <td>P1000001</td>
-          <td>1</td>
-          <td>
-            <div id="color">Color: Black</div>
-            <div id="font">Font: Elegant</div>
-            <details>
-              <summary>Details</summary>
-              custom top: Dear An,<br>
-              custom body: Merry Chrismas!<br>
-              custom bottom: Sincerely, Qian
-            </details>
-          </td>
-          <td>
-            <details>
-              <summary>Details</summary>
-              Qian<br>
-              10 Persholas ST APT 10<br>
-              BOSTON, MA 02130<br>
-              United States<br>
-              Phone: 6170009999
-            </details>
-          </td>
-          <td>Created</td>
-          <td>In Process</td>
-        </tr>
-
-        <!-- order 2 -->
-        <tr class="order-item">
-          <td>
-            <input type="checkbox" name="order_item" value="order_id,product_id">
-          </td>
-          <td>A1000002</td>
-          <td>2020-08-11</td>
-          <td>P1000002</td>
-          <td>1</td>
-          <td>
-            <div id="color">Color: Black</div>
-            <div id="font">Font: Elegant</div>
-            <details>
-              <summary>Details</summary>
-              custom top: Dear An,<br>
-              custom body: Merry Chrismas!<br>
-              custom bottom: Sincerely, Qian
-            </details>
-          </td>
-          <td>
-            <details>
-              <summary>Details</summary>
-              Qian<br>
-              10 Persholas ST APT 10<br>
-              BOSTON, MA 02130<br>
-              United States<br>
-              Phone: 6170009999
-            </details>
-          </td>
-          <td>In Process</td>
-          <td>Shipped</td>
-        </tr>
-
-        <!-- order 3 -->
-        <tr class="order-item">
-          <td>
-            <input type="checkbox" name="order_item" value="order_id,product_id">
-          </td>
-          <td>A1000003</td>
-          <td>2020-08-11</td>
-          <td>P1000003</td>
-          <td>1</td>
-          <td>
-            <div id="color">Color: Black</div>
-            <div id="font">Font: Elegant</div>
-            <details>
-              <summary>Details</summary>
-              custom top: Dear An,<br>
-              custom body: Merry Chrismas!<br>
-              custom bottom: Sincerely, Qian
-            </details>
-          </td>
-          <td>
-            <details>
-              <summary>Details</summary>
-              Qian<br>
-              10 Persholas ST APT 10<br>
-              BOSTON, MA 02130<br>
-              United States<br>
-              Phone: 6170009999
-            </details>
-          </td>
-          <td>Shipped</td>
-          <td>Complete</td>
-        </tr>
-
-        <tr class="order-item">
-          <td colspan="8">
+          <td colspan="6">
           </td>
 
+		<!-- click to operate on checked order to move on to next step -->
           <td>
-            <button>Next Step</button>
+            <button type="submit" th:text="${nextStep}">Next Step</button>
           </td>
         </tr>
 
       </table>
-
+    </form>
+    
+    <form action="#" th:action="@{/admin/view_order}" method="get">
+    <div>
+    	Quick Order Check. Enter Order ID:
+      	<input type="number" name="orderId">
+      	<button type="submit">Go</button>
+    </div>
     </form>
   </main>
 

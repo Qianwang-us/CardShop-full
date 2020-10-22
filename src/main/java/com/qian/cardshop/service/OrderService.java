@@ -2,6 +2,9 @@ package com.qian.cardshop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.data.repository.query.Param;
 
 import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.model.Order;
@@ -16,4 +19,8 @@ public interface OrderService {
 	public void deleteById(Integer id);
 	
 	public List<Order> getOrderHistory(Customer customer);
+	
+	List<Order> findByOrderStatus(String orderStatus);
+	
+	List<Order> findByOrderIds(@Param("ids") Set<Integer> ids);
 }
