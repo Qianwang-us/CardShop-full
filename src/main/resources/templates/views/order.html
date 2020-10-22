@@ -64,7 +64,9 @@
           <div class="item" th:each="tempItem : ${order.orderItems}">
 
             <div class="card-img">
-              <img th:src="@{${tempItem.product.imagePath}}" alt="product photo" />
+              <a th:href="@{/product/{productId}(productId=${tempItem.product.productId})}">
+              	<img th:src="@{${tempItem.product.imagePath}}" alt="product photo" />
+              </a>
             </div>
 
             <div class="product-info">
