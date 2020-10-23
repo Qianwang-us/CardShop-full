@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is used to store shipping address and contact info of order, 
+ * the source could be from customer form input or copied over from customer details info
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name = "receivers")
 public class Receiver {
@@ -46,8 +52,12 @@ public class Receiver {
 	@OneToOne(mappedBy = "receiver")
 	private Order order;
 	
+	
+	// constructors
+	
 	public Receiver() {}
 	
+	// copied from customer detail info
 	public Receiver(Customer customer) {
 		this.firstName = customer.getUser().getFirstName();
 		this.lastName = customer.getUser().getLastName();
@@ -61,7 +71,6 @@ public class Receiver {
 
 	public Receiver(String firstName, String lastName, String addressLine1, String addressLine2, String city,
 			String state, String zipCode, String phone) {
-		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.addressLine1 = addressLine1;
@@ -72,6 +81,9 @@ public class Receiver {
 		this.phone = phone;
 	}
 
+	
+	// getters and setters
+	
 	public Integer getReceiverId() {
 		return receiverId;
 	}
@@ -152,6 +164,8 @@ public class Receiver {
 		this.order = order;
 	}
 
+	// toString
+	
 	@Override
 	public String toString() {
 		return "Receiver [receiverId=" + receiverId + ", firstName=" + firstName + ", lastName=" + lastName
@@ -159,6 +173,8 @@ public class Receiver {
 				+ state + ", zipCode=" + zipCode + ", phone=" + phone + "]";
 	}
 
+	// hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(receiverId);
@@ -175,6 +191,5 @@ public class Receiver {
 		Receiver other = (Receiver) obj;
 		return Objects.equals(receiverId, other.receiverId);
 	}
-	
 	
 }

@@ -346,6 +346,14 @@ public class OrderController {
 		return "views/order_history";
 	}
 	
+	
+	/**
+	 * This method is used to show order detail page for customer
+	 * 
+	 * @param orderId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/view_order/{orderId}")
 	public String viewOrder(@PathVariable int orderId, Model model) {
 		

@@ -6,7 +6,7 @@ import java.util.List;
 import com.qian.cardshop.model.Item;
 
 /**
- * this class helps to calculate payment information when placing the order
+ * this class helps to calculate payment summary information for cart and order detail page
  * @author qianwang
  *
  */
@@ -15,6 +15,11 @@ public class PaymentSummary {
 	public static final Double taxRate = 0.1;
 	public static final Double shipping = 3.99;
 	
+	/**
+	 * This method helps to calculate payment summary for order
+	 * @param itemList
+	 * @return
+	 */
 	public static ArrayList<Double> calculatePayment(List<Item> itemList) {
 		double itemsTotal = 0.0;
 		
@@ -41,6 +46,11 @@ public class PaymentSummary {
 		return payment;
 	}
 	
+	/**
+	 * This method helps to calculate payment for cart
+	 * @param itemList
+	 * @return
+	 */
 	public static Double calculateItemsTotal(List<Item> itemList) {
 		Double itemsTotal = 0.0;
 		

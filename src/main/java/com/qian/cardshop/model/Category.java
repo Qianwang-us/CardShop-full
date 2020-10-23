@@ -14,6 +14,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * This class is used as product's category. Category id and name are predefined in database.
+ * Reference list:
+ * ID	Holiday Name
+ * 1	Holidays
+ * 2	Events
+ * 3	Birthday
+ * 4	Graduation
+ * 5	Chrismas Day
+ * 6	Mother's Day
+ * 7	Father's Day
+ * 8	Valentine's Day
+ * 9	New Year's Day
+
+ * 
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name="categories")
 public class Category {
@@ -25,7 +43,7 @@ public class Category {
 	@Column(name="category_name", nullable=false)
 	private String categoryName;
 	
-	// level = 1 or 2
+	// level = 1 or 2, level 1 is parent level, 2 is sublevel
 	@Column(name="level")
 	private int level;
 	
@@ -38,6 +56,9 @@ public class Category {
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;
 	
+	
+	//constructors
+	
 	public Category() {}
 
 	public Category(Integer categoryId, String categoryName, int level, Category parent) {
@@ -47,6 +68,8 @@ public class Category {
 		this.parent = parent;
 	}
 
+	// getters and setters
+	
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -87,11 +110,15 @@ public class Category {
 		this.products = products;
 	}
 
+	// toString
+	
 	@Override
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", level=" + level + "]";
 	}
 
+	// hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(categoryId);

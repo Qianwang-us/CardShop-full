@@ -40,31 +40,20 @@ public class HomeController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//	@Autowired
-//	public HomeController(ProductService productService, CustomerService customerService, CartService cartService,
-//			ItemService itemService, CategoryService categoryService) {
-//		this.productService = productService;
-//		this.customerService = customerService;
-//		this.cartService = cartService;
-//		this.itemService = itemService;
-//		this.categoryService = categoryService;
-//	}
 
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
 		
-		// TODO: need to review!!!!!!!!!!!
-		
+		// try to get authentication info in case user comes from login page
 		String email = null;
 		try {
 			email = SecurityUtils.getUserName();						
 
 		}catch(Exception e) {
-			//e.printStackTrace();
 			logger.warn("Home Controller: Wrong with SecurityUtils.getUserName() ");
 		}
 		
-		// use case: user login, redirect to home page, session currentUser is not set yet
+		// use case: user login, redirect to home page, set session currentUser if it is not set yet
 		try {
 			if(email != null && session.getAttribute("currentUser") == null) {
 				User user = userService.findByEmail(email).get();
@@ -73,29 +62,21 @@ public class HomeController {
 				logger.trace("index, path(/), user: " + user);
 			}
 		}catch(Exception e) {
-			//e.printStackTrace();
 			logger.warn("index: Wrong with session ");
 		}
-		
-		
-		// use case: user login 
 		
 		List<Product> product = productService.findAll();
 		model.addAttribute("products", product);
 		return "views/product_list";
 	}
 
-//	@GetMapping("/list")
-//	//@GetMapping(value = { "/list", "/list/{categoryId}" })
-//	public String listProducts(Model model) {
-//
-//		List<Product> product = productService.findAll();
-//		model.addAttribute("products", product);
-//		// product list all
-//		return "views/product_list";
-//	}
-
-	
+	/**
+	 * This method is used to show product list by category.
+	 * It is called when user click holiday name (category) from dropdown menu in the header
+	 * @param categoryId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/category/{categoryId}")
 	public String browseProductByCategory(@PathVariable int categoryId, Model model) {
 		logger.trace("Enter  browseProductByCategory");
@@ -107,6 +88,7 @@ public class HomeController {
 		
 		Category tempCategory = category.get();
 		
+		// retrieve product list by category
 		List<Product> product = productService.findByCategory(tempCategory);
 	
 		logger.trace("product: [" + product+"]");
@@ -119,6 +101,13 @@ public class HomeController {
 		return "views/product_list";
 	}
 	
+	/**
+	 * This method is used to show product list by category and sorted by sort-type chosen by user.
+	 * It is called when user choose sort type in category product list page
+	 * @param categoryId
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/category")
 	public String browseProductByCategory(@RequestParam("sort-type") String sortType, @RequestParam("categoryId") int categoryId, Model model) {
 		logger.trace("Enter  browseProductByCategory");
@@ -130,37 +119,46 @@ public class HomeController {
 		
 		Category tempCategory = category.get();
 		
-		List<Product> product;
-		//= productService.findByCategory(tempCategory);
+		List<Product> products = null;
 	
+		// get product list with sort-type and category
 		switch(sortType) {
 		case "new":
-			product = productService.findByCategoryOrderByCreatedOnDesc(tempCategory);
+			products = productService.findByCategoryOrderByCreatedOnDesc(tempCategory);
 			break;
 		case "priceAsc":
-			product = productService.findByCategoryOrderByPriceAsc(tempCategory);
+			products = productService.findByCategoryOrderByPriceAsc(tempCategory);
 			break;
 		case "priceDesc":
-			product = productService.findByCategoryOrderByPriceDesc(tempCategory);
+			products = productService.findByCategoryOrderByPriceDesc(tempCategory);
 			break;
 		default:
-			product = productService.findByCategoryOrderByCreatedOnDesc(tempCategory);
+			products = productService.findByCategoryOrderByCreatedOnDesc(tempCategory);
 			break;
 		}
 		
-		model.addAttribute("products", product);
+		model.addAttribute("products", products);
 		model.addAttribute("categoryName", tempCategory.getCategoryName());
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("sortType", sortType);
 		
 		logger.trace("sortType: " + sortType);
-		//logger.trace("product: [" + product+"]");
 		logger.trace("Exit  browseProductByCategory");
 		return "views/product_list";
 	}
 
+	/**
+	 * This method is used to show product page for user to configure item
+	 * It is called when user click product image from product list page
+	 * @param productId
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/product/{productId}")
 	public String viewProduct(@PathVariable("productId") int productId, Model model, HttpSession session) {
+		
+		// try to retrieve login info
 		String email = null;
 		try {
 			email = SecurityUtils.getUserName();						
@@ -170,7 +168,7 @@ public class HomeController {
 			logger.warn("viewProduct: Wrong with SecurityUtils.getUserName() ");
 		}
 		
-		// use case: user login, redirect to home page, session currentUser is not set yet
+		// by spring security config, user should already login at this point, retrieve user info and set it in session
 		try {
 			if(email != null && session.getAttribute("currentUser") == null) {
 				User user = userService.findByEmail(email).get();
@@ -183,11 +181,13 @@ public class HomeController {
 			logger.warn("viewProduct: Wrong with session ");
 		}
 		
+		// set up new item with chosen product and pass it to product page
 		Optional<Product> tempProduct = productService.findById(productId);
 
 		if (tempProduct.isEmpty()) {
 			throw new ProductNotFoundException("Product with id " + productId + " is not found");
 		}
+		
 		Item tempItem = new Item(tempProduct.get());
 		model.addAttribute("item", tempItem);
 
@@ -195,7 +195,10 @@ public class HomeController {
 	}
 
 
-
+	/**
+	 * This method is used to show about_us page
+	 * @return
+	 */
 	@GetMapping("/about_us")
 	public String showAboutUs() {
 		return "views/about_us";

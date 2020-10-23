@@ -15,6 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is used to store register and login info, used for Spring Security
+ * 
+ * @author qianwang
+ *
+ */
 
 @Entity
 @Table(name = "users")
@@ -50,23 +56,10 @@ public class User {
     @JoinColumn(name = "employee_id")	
 	Employee employee;
 	
+	
+	// constructors
 	public User() {}
 
-//	public User(String email, String password) {
-//		this.email = email;
-//		this.password = password;
-//	}
-	
-//	public User(Customer customer, Employee employee) {
-//		this.customer = customer;
-//		this.role = "USER";
-//	}
-//	
-//	public User(Employee employee) {
-//		this.employee = employee;
-//		this.role = "ADMIN";
-//	}
-	
 	public User(Integer userId, String email, String password, String firstName, String lastName, Boolean enabled,
 			String role) {
 		this.userId = userId;
@@ -78,10 +71,12 @@ public class User {
 		this.role = role;
 	}
 
+	
+	// getters and setters
+	
 	public Integer getUserId() {
 		return userId;
 	}
-
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -129,8 +124,6 @@ public class User {
 		customer.setUser(this);
 	}
 
-	
-
 	public Employee getEmployee() {
 		return employee;
 	}
@@ -156,7 +149,7 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	
+	// toString
 
 	@Override
 	public String toString() {
@@ -164,6 +157,9 @@ public class User {
 				+ ", lastName=" + lastName + ", enabled=" + enabled + ", role=" + role + "]";
 	}
 
+	
+	// hashCode and equals with userId
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(userId);
@@ -180,7 +176,5 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
 	}
-	
-	
 	
 }

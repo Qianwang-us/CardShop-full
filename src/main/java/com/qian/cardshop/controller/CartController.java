@@ -23,6 +23,11 @@ import com.qian.cardshop.service.ItemService;
 import com.qian.cardshop.service.UserService;
 import com.qian.cardshop.util.PaymentSummary;
 
+/**
+ * This controller is used for managing items in cart
+ * @author qianwang
+ *
+ */
 @Controller
 public class CartController {
 	
@@ -33,13 +38,18 @@ public class CartController {
 	private CartService cartService;
 	
 	@Autowired
-	private CustomerService customerService;
-	
-	@Autowired
 	private UserService userService;
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	
+	/**
+	 * This method is used to update item info in cart
+	 * it is called when user click update of item in cart
+	 * @param itemId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/edit_item")
 	public String editItem(@RequestParam("itemId") int itemId, Model model) {
 
@@ -55,6 +65,13 @@ public class CartController {
 		return "views/product";
 	}
 	
+	/**
+	 * This method is used to add new item in the cart
+	 * it is called when customer click 'add to cart' button in product page
+	 * @param item
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping("/add_to_cart")
 	public String addToCart(@ModelAttribute("item") Item item, RedirectAttributes redirectAttributes) {
 
@@ -75,7 +92,7 @@ public class CartController {
 		
 		tempCart = user.getCustomer().getCart();
 		
-		// edit item, and then add to cart
+		// user click update item in cart page, go to product page, and then add to cart
 		if (tempCart.getCartItems().contains(item)) {
 			tempCart.updateItem(item);
 		} else {
@@ -95,11 +112,20 @@ public class CartController {
 		return "redirect:/view_cart";
 	}
 
+	/**
+	 * This method is used to show items in cart page
+	 * It is called either after customer adding items to cart or click cart icon in the header
+	 * 
+	 * @param cartId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/view_cart")
 	public String viewCart(@RequestParam(required=false) Integer cartId, Model model) {
 		User user = null;
 		Cart tempCart = null;
 		
+		// 
 		if(cartId==null) {
 			try {
 				String email = SecurityUtils.getUserName();
@@ -125,15 +151,22 @@ public class CartController {
 		
 		model.addAttribute("cart", tempCart);
 		
+		// calculate payment summary for cart page
 		Double itemsTotal = PaymentSummary.calculateItemsTotal(tempCart.getCartItems());
 		model.addAttribute("itemsTotal", itemsTotal);
 
 		return "views/cart";
 	}
 
+	/**
+	 * This method is used to remove items from cart
+	 * It is called when customer click delete in cart page
+	 * @param itemId
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@GetMapping("/remove_from_cart")
 	public String removeFromCart(@RequestParam("itemId") int itemId, RedirectAttributes redirectAttributes) {
-		// Optional<Cart> tempCart = cartService.findById(cartId);
 		Optional<Item> item = itemService.findById(itemId);
 		if (item.isEmpty()) {
 			throw new RuntimeException("Item id " + itemId + " is not found!");
@@ -143,9 +176,7 @@ public class CartController {
 		cart.removeItem(tempItem);
 		itemService.deleteById(tempItem.getItemId());
 		cartService.save(cart);
-//		model.addAttribute("cart", cart);
-//
-//		return "views/cart";
+		
 		redirectAttributes.addAttribute("cartId", cart.getCartId());
 
 		return "redirect:/view_cart";

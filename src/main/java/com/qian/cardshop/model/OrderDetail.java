@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is used to store order processing info including processed person and processed date
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name = "order_details")
 public class OrderDetail {
@@ -52,8 +57,14 @@ public class OrderDetail {
 	@OneToOne(mappedBy="orderDetail")	
 	private Order order;
 	
+	
+	// constructors
+	
 	public OrderDetail() {}
 
+	
+	// getters and setters
+	
 	public Integer getOrderDetailId() {
 		return orderDetailId;
 	}
@@ -118,6 +129,9 @@ public class OrderDetail {
 		this.order = order;
 	}
 
+	
+	// toString
+	
 	@Override
 	public String toString() {
 		return "OrderDetail [orderDetailId=" + orderDetailId + ", processedBy=" + processedBy.getEmployeeId() + ", processedOn="
@@ -125,6 +139,9 @@ public class OrderDetail {
 				+ ", cancelledOn=" + cancelledOn + "]";
 	}
 
+	
+	// hashCode and equals with orderDetailId
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(orderDetailId);
@@ -141,7 +158,6 @@ public class OrderDetail {
 		OrderDetail other = (OrderDetail) obj;
 		return Objects.equals(orderDetailId, other.orderDetailId);
 	}
-	
 	
 }
 

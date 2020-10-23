@@ -19,6 +19,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+/**
+ * This class is used as product master data
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name="products")
 public class Product {
@@ -37,6 +42,7 @@ public class Product {
 	@JoinColumn(name="category_id")
 	private Category category;
 	
+	//include the full path of the image e.g. /images/example.jpg
 	@Column(name="image_path")
 	private String imagePath;
 	
@@ -53,6 +59,7 @@ public class Product {
 	@ManyToMany(mappedBy = "likedProducts")
 	private List<Customer> likedByCustomers;
 
+	// constructors
 	public Product() {
 		
 	}
@@ -64,6 +71,8 @@ public class Product {
 		this.price = price;		
 	}
 
+	// getters and setters
+	
 	public Integer getProductId() {
 		return productId;
 	}
@@ -112,8 +121,6 @@ public class Product {
 		this.createdOn = createdOn;
 	}
 	
-	
-
 	public Category getCategory() {
 		return category;
 	}
@@ -130,12 +137,17 @@ public class Product {
 		this.likedByCustomers = likedByCustomers;
 	}
 
+	
+	// toString
+	
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", provider=" + provider
 				+ ", imagePath=" + imagePath + ", price=" + price + ", createdOn=" + createdOn + "]";
 	}
 
+	// hashCode and equals with productId
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(productId);
@@ -152,10 +164,5 @@ public class Product {
 		Product other = (Product) obj;
 		return productId == other.productId;
 	}
-	
-	
-	
-	
-	
-	
+
 }

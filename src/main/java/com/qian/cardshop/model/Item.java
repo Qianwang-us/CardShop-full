@@ -11,7 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-//order-product, cart-product
+//order-item, cart-item
+/**
+ * This class is used as items in cart or order which can be checked by associated Cart and Order class
+ * It contains custom info from customer such as text-color, text-font and custom-text
+ * 
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name="items")
 public class Item {
@@ -55,6 +62,8 @@ public class Item {
 	@JoinColumn(name = "order_id")
 	private Order order;
 	
+	
+	// constructors
 	public Item() {
 		this.quantity = 1;
 		this.textColor="Black";
@@ -67,15 +76,7 @@ public class Item {
 		
 	}
 
-//	public Item(int quantity, String textColor, String textFont, String customTop, String customBody,
-//			String customBottom) {
-//		this.quantity = quantity;
-//		this.textColor = textColor;
-//		this.textFont = textFont;
-//		this.customTop = customTop;
-//		this.customBody = customBody;
-//		this.customBottom = customBottom;
-//	}
+	// getters and setters
 
 	public Integer getItemId() {
 		return itemId;
@@ -157,6 +158,8 @@ public class Item {
 		this.order = order;
 	}
 
+	// toString
+	
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", quantity=" + quantity + ", textColor=" + textColor + ", textFont="
@@ -164,6 +167,9 @@ public class Item {
 				+ customBottom + "]";
 	}
 
+	
+	// hashCode and equals by itemId
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(itemId);

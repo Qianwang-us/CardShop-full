@@ -122,9 +122,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		                "/register/**",
 		                "/",
 		                "/about_us",
+		                //"/product/**",
 		                "/category/**").permitAll()
 		        .antMatchers("/admin**"
-		        		//"/order/**"
 		        		)
 				.hasRole("ADMIN")
 				.antMatchers(
@@ -133,7 +133,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						"/edit_item/**",
 						"/view_cart/**",
 						"/remove_from_cart/**"
-						//"/order/**"
 						)
 				.hasRole("USER")
 				.antMatchers("/order/**")

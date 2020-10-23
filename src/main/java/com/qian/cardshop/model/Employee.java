@@ -9,6 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is used as admin of the website, 
+ * associated class User store login/register info which has role 'ROLE_ADMIN'.
+ * 
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name = "employees")
 public class Employee{
@@ -21,41 +28,38 @@ public class Employee{
 	@OneToOne(mappedBy="employee")
 	private User user;
 	
+	// constructors 
 	
 	public Employee() {}
-
 	
+
+	// getters and setters
 
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
 
-
-
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
 	}
-
-
 
 	public User getUser() {
 		return user;
 	}
 
-
-
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-
+	// toString
 
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + "]";
 	}
 
-
+	// hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(employeeId);
@@ -73,7 +77,5 @@ public class Employee{
 		Employee other = (Employee) obj;
 		return Objects.equals(employeeId, other.employeeId);
 	}
-	
-
 	
 }

@@ -7,10 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is used to store address and contact info of customer
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name = "customer_details")
 public class CustomerDetail{
@@ -43,6 +47,8 @@ public class CustomerDetail{
 	@OneToOne(mappedBy = "customerDetail")
 	private Customer customer;
 	
+	//constructors
+	
 	public CustomerDetail() {}
 	
 	public CustomerDetail(Receiver receiver) {
@@ -54,19 +60,11 @@ public class CustomerDetail{
 		this.phone = receiver.getPhone();
 	}
 
-//	public CustomerDetail(String addressLine1, String addressLine2, String city, String state, String zipCode,
-//			String phone) {
-//		
-//		this.addressLine1 = addressLine1;
-//		this.addressLine2 = addressLine2;
-//		this.city = city;
-//		this.state = state;
-//		this.zipCode = zipCode;
-//		this.phone = phone;
-//	}
-	
-	
 
+	/**
+	 * Update customer detail when customer choose to save the new shipping address info as personal address
+	 * @param receiver new address and phone info
+	 */
 	public void update(Receiver receiver) {
 		this.addressLine1 = receiver.getAddressLine1();
 		this.addressLine2 = receiver.getAddressLine2();
@@ -76,6 +74,8 @@ public class CustomerDetail{
 		this.phone = receiver.getPhone();		
 	}
 
+	// getters and setters
+	
 	public Integer getCustomerDetailId() {
 		return customerDetailId;
 	}
@@ -140,6 +140,9 @@ public class CustomerDetail{
 		this.customer = customer;
 	}
 
+	
+	// toString
+	
 	@Override
 	public String toString() {
 		return "CustomerDetail [customerDetailId=" + customerDetailId + ", addressLine1=" + addressLine1
@@ -147,6 +150,8 @@ public class CustomerDetail{
 				+ ", phone=" + phone + "]";
 	}
 
+	
+	// hashCode and equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(customerDetailId);
@@ -164,7 +169,4 @@ public class CustomerDetail{
 		return Objects.equals(customerDetailId, other.customerDetailId);
 	}
 
-	
-	
-	
 }

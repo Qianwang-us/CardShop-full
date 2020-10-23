@@ -1,6 +1,8 @@
 package com.qian.cardshop.model;
 
-
+/**
+ * This class is used as order which is created in the final step of shopping process
+ */
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -54,12 +56,15 @@ public class Order {
 	@OneToMany(mappedBy="order")
 	private List<Item> orderItems;
 
-	
+	/**
+	 * The date/time should be automatic generated when order is created in database
+	 */
 	@CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
 	//@Column(name="created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdOn;
 
+	//Payment Summary Info
 	//value = 'PAYPAL'
 	@Column(name="payment_method", columnDefinition = "varchar(45) default 'PAYPAL'")
 	private String paymentMethod;
@@ -81,8 +86,11 @@ public class Order {
     @JoinColumn(name = "order_detail_id")
 	private OrderDetail orderDetail;
 
+	
+	// constructors
 	public Order() {}
 	
+	// used in final step order creation
 	public Order(Customer customer, Receiver receiver, String billingAddressType, Double itemsTotal, Double shipping, Double tax, Double orderTotal) {
 		this.billingAddressType = billingAddressType;				
 		this.customer = customer;
@@ -97,7 +105,7 @@ public class Order {
 		this.paymentMethod="PAYPAL";
 	}
 
-
+	// getters and setters
 
 	public Integer getOrderId() {
 		return orderId;
@@ -129,7 +137,7 @@ public class Order {
 
 	public void setCustomer(Customer customer) {				
 		this.customer = customer;
-		//customer.addOrder(this);
+		//customer.addOrder(this); // delete to avoid loop since already addOrder in customer
 	}
 
 	public Receiver getReceiver() {
@@ -205,6 +213,8 @@ public class Order {
 	public void setOrderDetail(OrderDetail orderDetail) {
 		this.orderDetail = orderDetail;
 	}
+	
+	// toString
 
 	@Override
 	public String toString() {
@@ -213,6 +223,8 @@ public class Order {
 				+ itemsTotal + ", shipping=" + shipping + ", tax=" + tax + ", orderTotal=" + orderTotal + "]";
 	}
 
+	// hashCode and equals with orderId
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(orderId);
@@ -229,7 +241,6 @@ public class Order {
 		Order other = (Order) obj;
 		return Objects.equals(orderId, other.orderId);
 	}
-	
 	
 }
 

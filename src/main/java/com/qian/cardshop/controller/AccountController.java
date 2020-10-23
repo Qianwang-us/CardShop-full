@@ -18,35 +18,58 @@ import com.qian.cardshop.model.User;
 import com.qian.cardshop.service.UserService;
 import com.qian.cardshop.util.EmployeeRegister;
 
+/**
+ * This controller is used to account management function such as login and register 
+ * @author qianwang
+ *
+ */
 @Controller
 public class AccountController {
 	
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * When user is registered as customer
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/register")
 	public String register(Model model) {
 		
 		User newUser = new User();
 		
-		// container for new user
 		model.addAttribute("newUser", newUser);
 		
 		return "views/register";
 	}
 	
+	/**
+	 * When user is registered as employee
+	 * @param isEmployee should be true for employee registeration
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/register/{isEmployee}")
 	public String registerEmployee(@PathVariable boolean isEmployee, Model model) {
 		
 		User newUser = new User();
 		
-		// container for new user
 		model.addAttribute("newUser", newUser);
 		model.addAttribute("isEmployee", isEmployee);
 		
 		return "views/register";
 	}
 	
+	/**
+	 * This method is called after user complete the registration form and submit, new user will be created
+	 * @param newUser user info to save
+	 * @param bind for validation check
+	 * @param model
+	 * @param passcode for employee registration
+	 * @return
+	 */
 	@PostMapping("/register/save")
 	public String saveUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult bind, Model model, @RequestParam(value="passcode", required=false) String passcode) {
 		
@@ -60,11 +83,15 @@ public class AccountController {
 		
 		}else {
 			if (EmployeeRegister.isValid(passcode)) {
+				
+				// save the user as employee when passcode is valid
 				newUser.setRole("ROLE_ADMIN");
 				newUser.setEnabled(true);
 				newUser.setEmployee(new Employee());
 				userService.save(newUser);
 			}else {
+				
+				// go to register page if the passcode is not valid
 				model.addAttribute("message", "You passcode is not valid, please try again.");
 				return "views/register";
 			}
@@ -72,16 +99,23 @@ public class AccountController {
 		
 		model.addAttribute("message", "You've registered successfully, please login.");
 		
-		//return "redirect:/login";
-		
+		// once successfully registered, go to login page to indicate user to login with new account
 		return "views/login";
 	}
 
+	/**
+	 * This method is called for login function, configured in spring security
+	 * @return
+	 */
 	@GetMapping("/login")
 	public String login() {
 		return "views/login";
 	}
 	
+	/**
+	 * This method is called when user access some page does not fit his/her role, configured in spring security
+	 * @return
+	 */
 	@GetMapping("/accessdenied")
 	public String accessdenied() {
 		

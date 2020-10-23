@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.qian.cardshop.model.Cart;
+import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.model.Order;
 import com.qian.cardshop.service.OrderService;
 import com.qian.cardshop.util.OrderStatus;
@@ -83,8 +85,6 @@ public class AdminController {
 		}
 
 			
-		
-		
 		logger.trace("updateOrderStatus, order Id list: "+ Arrays.toString(orderIdList));
 		
 		return "redirect:/admin/orders";
@@ -98,8 +98,17 @@ public class AdminController {
 	 */
 	@GetMapping("/view_order")
 	public String viewOrder(@RequestParam("orderId") int orderId, Model model) {
+		Order order = null;
 		
-		Order order = orderService.findById(orderId).get();
+		try {
+			order = orderService.findById(orderId).get();
+		}catch(Exception e) {
+			String errorMsg = "No order is found!";
+			logger.error(errorMsg);
+			model.addAttribute("error", errorMsg);
+			return "views/error";
+		}
+		
 		
 		model.addAttribute("order", order);
 		// pass the order to view, show details

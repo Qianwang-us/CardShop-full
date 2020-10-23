@@ -9,6 +9,13 @@ package com.qian.cardshop.util;
  *
  */
 public class OrderStatus {
+	
+	/**
+	 * This method help to change order status to next valid one
+	 * 
+	 * @param originalStatus
+	 * @return
+	 */
 	public static String getNextStatus(String originalStatus) {
 		String nextStatus = null;
 		switch (originalStatus) {
@@ -32,6 +39,13 @@ public class OrderStatus {
 		return nextStatus;
 	}
 	
+	
+	/**
+	 * This method help to provide next step operation name to show up in order_fulfilment.html page
+	 * 
+	 * @param originalStatus
+	 * @return
+	 */
 	public static String getNextStep(String originalStatus) {
 		String nextStep = null;
 		switch (originalStatus) {

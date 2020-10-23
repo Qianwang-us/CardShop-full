@@ -16,9 +16,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+/**
+ * This class is used for customers of the e-commerce website
+ * login/register info are stored in related User class which has role 'ROLE_USER'
+ * info for shopping purpose is stored in this class
+ * 
+ * @author qianwang
+ *
+ */
 @Entity
 @Table(name = "customers")
 public class Customer{
@@ -30,8 +37,10 @@ public class Customer{
 	
 	@OneToOne(mappedBy="customer")
 	User user;
-	
 
+	/**
+	 * This associated class is used to store address info of the customer
+	 */
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_detail_id")
 	private CustomerDetail customerDetail;
@@ -41,7 +50,7 @@ public class Customer{
     @JoinColumn(name = "cart_id")
 	private Cart cart;
 
-	// field for getFavoriteList and getOrderHistory method, may be removed later
+	// Not used, currently not support for like function
 	//@ManyToMany - owner
 	@ManyToMany
 	@JoinTable(
@@ -50,10 +59,13 @@ public class Customer{
 	  inverseJoinColumns = @JoinColumn(name = "product_id"))	
 	private List<Product> likedProducts;
 	
-	//@OneToMany - do not need, use by query - limit the count
+	//Currently not used, maybe removed in later version
 	@OneToMany(mappedBy = "customer")
 	private List<Order> orders;
 
+	
+	//constructors
+	
 	public Customer() {
 		likedProducts = new ArrayList<Product>();
 		orders = new ArrayList<Order>();
@@ -62,17 +74,19 @@ public class Customer{
 	}
 
 	
-	
+	// used when order is created
 	public void addOrder(Order order) {
 		order.setCustomer(this);
 		this.orders.add(order);		
 	}
 	
-	public void removeOrder(Order order) {
-		this.orders.remove(order);		
-	}
+//	public void removeOrder(Order order) {
+//		this.orders.remove(order);		
+//	}
 	
 
+	// getters and setters
+	
 	public CustomerDetail getCustomerDetail() {
 		return customerDetail;
 	}
@@ -112,8 +126,6 @@ public class Customer{
 		this.orders = orders;
 	}
 	
-	
-
 	public User getUser() {
 		return user;
 	}
@@ -123,13 +135,20 @@ public class Customer{
 	}
 
 
+	// toString
+	
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + "]";
+	}
 
+
+	// hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(customerId);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -143,11 +162,5 @@ public class Customer{
 		return Objects.equals(customerId, other.customerId);
 	}
 
-	
-
-
-	
-	
-	
 	
 }
