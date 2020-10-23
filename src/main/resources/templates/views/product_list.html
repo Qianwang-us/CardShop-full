@@ -47,7 +47,7 @@
     <!-- main product items display -->
     <div class="item-container">
 
-      <!-- one item display template -->
+      <!-- display each item -->
       <div class="main-item" th:each="tempProduct : ${products}">
         <div class="item-img">
           <a th:href="@{/product/{productId}(productId=${tempProduct.productId})}">
@@ -56,9 +56,10 @@
           </a>
         </div>
         <div class="subitem-container">
-          <div class="favoriate">
+        <!-- comment out like product function -->
+          <!-- <div class="favoriate">
             <i class="far fa-heart"></i>
-          </div>
+          </div> -->
           <div>
             <ul>
             <li>Name: <span th:text="${tempProduct.productName}" th:remove="tag">userName</span></li>
