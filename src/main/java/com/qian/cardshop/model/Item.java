@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 //order-item, cart-item
 /**
@@ -28,6 +31,8 @@ public class Item {
 	Integer itemId;
 	
 	@Column(name="quantity", nullable=false)
+	@Min(value=1)
+	@Max(value=500)
 	private int quantity;	
 	
 	//value={'Black', 'Blue', 'Purple'}
@@ -37,12 +42,15 @@ public class Item {
 	@Column(name="text_font")
 	private String textFont;
 	
+	@Size(max=50, message="top should have have equal or less than 50 characters")
 	@Column(name="custom_top")
 	private String customTop;
 	
+	@Size(max=280, message="body should have have equal or less than 280 characters")
 	@Column(name="custom_body")
 	private String customBody;
 	
+	@Size(max=50, message="bottom should have have equal or less than 50 characters")
 	@Column(name="custom_bottom")
 	private String customBottom;
 	

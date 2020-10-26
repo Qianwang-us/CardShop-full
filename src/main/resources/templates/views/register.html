@@ -41,24 +41,31 @@
       	<span th:text="${message}"></span>
       	</th:block>
       	
+      	<div th:if="${#fields.hasErrors()}">
+			<span class="error">
+				Please correct the problems below and resubmit
+			</span>
+		</div>
+      	
         <label for="firstname">First Name</label>
-        <input type="text" id="firstname" th:field="*{firstName}">       
+        <input type="text" id="firstname" th:field="*{firstName}"> 
 		<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"> 
-		First Name is required</span>
+		First Name error</span>
 			
         <label for="lastname">Last Name</label>
         <input type="text" id="lastname" th:field="*{lastName}">
         <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"> 
-		Last Name is required</span>
+		Last Name error</span>
 
         <label for="email">Email address</label>
         <input type="email" id="email" th:field="*{email}">
         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"> 
-		Email is required</span>
+		Email error</span>
+		
         <label for="password">Password</label>
         <input type="password" id="password" th:field="*{password}">
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"> 
-		Password is required</span>
+		Password error</span>
 		
 		<th:block th:if="${isEmployee} == true">
 			<label for="passcode">Passcode for employee registration</label>

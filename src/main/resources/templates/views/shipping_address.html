@@ -67,27 +67,41 @@
 
       <label for="first_name">First Name<span class="required">*</span></label>
       <input type="text" id="first_name" th:field="*{firstName}" required />
+      <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"> 
+		First Name error</span>
       
       <label for="last_name">Last Name<span class="required">*</span></label>
       <input type="text" id="last_name" th:field="*{lastName}" required />
+      <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"> 
+		Last Name error</span>
       
       <label for="addressline1"></i> Address line 1<span class="required">*</span></label>
-      <input type="text" id="addressline1" th:field="*{addressLine1}" placeholder="Street address, P.O.box, company name, c/o" />
+      <input type="text" id="addressline1" th:field="*{addressLine1}" placeholder="Street address, P.O.box, company name, c/o" required/>
+      <span th:if="${#fields.hasErrors('addressLine1')}" th:errors="*{addressLine1}" class="error"> 
+		Address Line 1 error</span>
       
       <label for="addressling2"> Address line 2</label>
-      <input type="text" id="addressling2" th:field="*{addressLine2}" placeholder="Apartment, suite, unit, building, floor, etc." />
+      <input type="text" id="addressling2" th:field="*{addressLine2}" placeholder="Apartment, suite, unit, building, floor, etc."/>
       
       <label for="city">City<span class="required">*</span></label>
-      <input type="text" id="city" th:field="*{city}" />
+      <input type="text" id="city" th:field="*{city}" required/>
+      <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error"> 
+		City error</span>
       
       <label for="tel">Phone number<span class="required">*</span></label>
-      <input type="tel" id="tel" th:field="*{phone}" />
+      <input type="tel" id="tel" th:field="*{phone}" pattern = "^[(]?\d{3}[)]?[\s.-]?\d{3}[\s.-]?\d{4}$" required/>
+      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"> 
+		Phone error</span>
 
       <label for="state">State<span class="required">*</span></label>
-      <input type="text" id="state" th:field="*{state}" />
-
+      <input type="text" id="state" th:field="*{state}" pattern = "^(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))$" required/>
+      <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="error"> 
+		State error</span>
+      
       <label for="zip">Zip Code<span class="required">*</span></label>
-      <input type="text" id="zip" th:field="*{zipCode}" pattern = "^[0-9]{5}(?:-[0-9]{4})?$" />
+      <input type="text" id="zip" th:field="*{zipCode}" pattern = "^\d{5}(?:-\d{4})?$" required/>
+      <span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="error"> 
+		Zip code error</span>
       
         <fieldset>
           <legend>Select billing address</legend> 

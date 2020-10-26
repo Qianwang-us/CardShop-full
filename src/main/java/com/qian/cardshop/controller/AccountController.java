@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +47,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * When user is registered as employee
+	 * When user wants to be registered as employee
 	 * @param isEmployee should be true for employee registeration
 	 * @param model
 	 * @return
@@ -71,7 +72,12 @@ public class AccountController {
 	 * @return
 	 */
 	@PostMapping("/register/save")
-	public String saveUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult bind, Model model, @RequestParam(value="passcode", required=false) String passcode) {
+	public String processRegister(@Valid @ModelAttribute("newUser") User newUser, Errors errors, Model model, @RequestParam(value="passcode", required=false) String passcode) {
+		
+		if(errors.hasErrors()) {
+			return "views/register";
+		}
+		
 		
 		if (passcode == null) {
 		

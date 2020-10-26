@@ -2,11 +2,14 @@ package com.qian.cardshop.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +21,6 @@ import com.qian.cardshop.model.Item;
 import com.qian.cardshop.model.User;
 import com.qian.cardshop.security.SecurityUtils;
 import com.qian.cardshop.service.CartService;
-import com.qian.cardshop.service.CustomerService;
 import com.qian.cardshop.service.ItemService;
 import com.qian.cardshop.service.UserService;
 import com.qian.cardshop.util.PaymentSummary;
@@ -73,8 +75,13 @@ public class CartController {
 	 * @return
 	 */
 	@PostMapping("/add_to_cart")
-	public String addToCart(@ModelAttribute("item") Item item, RedirectAttributes redirectAttributes) {
+	public String addToCart(@Valid @ModelAttribute("item") Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
 
+		if(errors.hasErrors()) {
+			model.addAttribute("item", item);
+			return "views/product";
+		}
+		
 		User user = null;
 		Cart tempCart = null;
 

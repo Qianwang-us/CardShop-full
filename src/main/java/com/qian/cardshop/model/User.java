@@ -14,6 +14,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * This class is used to store register and login info, used for Spring Security
@@ -30,15 +33,21 @@ public class User {
 	@Column(name="user_id")
 	private Integer userId;	
 	
+	@Email(message="email field should follow a valid email format")
+	@NotBlank
 	@Column(name="email", unique=true, nullable=false)
 	private String email;
 	
+	@Size(min=4, max=100, message="password must be equal or larger than 4 characters and less than 100 characters")
+	@NotBlank
 	@Column(name="password", nullable=false)
 	private String password;
 	
+	@NotBlank(message="First Name can not blank")
 	@Column(name="first_name", nullable=false)
 	private String firstName;
 	
+	@NotBlank(message="Last Name can not blank")
 	@Column(name="last_name", nullable=false)
 	private String lastName;
 	
