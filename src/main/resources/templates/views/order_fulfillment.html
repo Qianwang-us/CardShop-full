@@ -25,6 +25,9 @@
       Order Process Chain:<br>
       CREATED &gt; INPROCESS &gt; SHIPPED &gt; COMPLETE
     </div>
+    <div>
+      List of Orders with status: <span th:text="${orderStatus}" class="status"></span>
+    </div>
     
     <!-- drop down list which enables to show backlog based on order status -->
     <form action="#" th:action="@{/admin/orders}"

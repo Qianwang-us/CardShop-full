@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 /**
  * This class is used to store order processing info including processed person and processed date
+ * The function is currently not supported by this project
+ * 
  * @author qianwang
  *
  */

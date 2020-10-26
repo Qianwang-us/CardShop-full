@@ -12,27 +12,27 @@ import com.qian.cardshop.service.OrderDetailService;
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
 	
-	OrderDetailRepository orderDetailRepository;
-		
+//	OrderDetailRepository orderDetailRepository;
+//		
+//
+//	public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository) {
+//		this.orderDetailRepository = orderDetailRepository;
+//	}
 
-	public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository) {
-		this.orderDetailRepository = orderDetailRepository;
-	}
-
-	@Override
-	public List<OrderDetail> findAll() {
-		return orderDetailRepository.findAll();
-	}
-
-	@Override
-	public Optional<OrderDetail> findById(Integer id) {
-		return orderDetailRepository.findById(id);
-	}
-
-	@Override
-	public void save(OrderDetail orderDetail) {
-		orderDetailRepository.save(orderDetail);
-	}
+//	@Override
+//	public List<OrderDetail> findAll() {
+//		return orderDetailRepository.findAll();
+//	}
+//
+//	@Override
+//	public Optional<OrderDetail> findById(Integer id) {
+//		return orderDetailRepository.findById(id);
+//	}
+//
+//	@Override
+//	public void save(OrderDetail orderDetail) {
+//		orderDetailRepository.save(orderDetail);
+//	}
 
 //	@Override
 //	public void deleteById(Integer id) {
