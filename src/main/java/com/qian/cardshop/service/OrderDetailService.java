@@ -12,5 +12,5 @@ public interface OrderDetailService {
 
 	public void save(OrderDetail orderDetail);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 }

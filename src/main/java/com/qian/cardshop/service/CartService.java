@@ -10,5 +10,5 @@ public interface CartService {
 
 	public void save(Cart cart);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 }

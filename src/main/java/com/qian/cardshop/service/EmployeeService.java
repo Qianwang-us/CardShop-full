@@ -6,11 +6,11 @@ import java.util.Optional;
 import com.qian.cardshop.model.Employee;
 
 public interface EmployeeService {
-	public List<Employee> findAll();
+//	public List<Employee> findAll();
 
 	public Optional<Employee> findById(Integer id);
 
 	public void save(Employee employee);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 }

@@ -34,9 +34,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetailRepository.save(orderDetail);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		orderDetailRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		orderDetailRepository.deleteById(id);
+//	}
 
 }

@@ -6,11 +6,11 @@ import java.util.Optional;
 import com.qian.cardshop.model.Customer;
 
 public interface CustomerService {
-	public List<Customer> findAll();
+//	public List<Customer> findAll();
 
 	public Optional<Customer> findById(Integer id);
 
 	public void save(Customer customer);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 }

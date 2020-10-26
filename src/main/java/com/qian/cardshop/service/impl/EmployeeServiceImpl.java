@@ -19,11 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		this.employeeRepository = employeeRepository;
 	}
 
-	@Override
-	public List<Employee> findAll() {
-		// TODO Auto-generated method stub
-		return employeeRepository.findAll();
-	}
+//	@Override
+//	public List<Employee> findAll() {
+//		// TODO Auto-generated method stub
+//		return employeeRepository.findAll();
+//	}
 
 	@Override
 	public Optional<Employee> findById(Integer id) {
@@ -36,10 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeRepository.save(employee);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		employeeRepository.deleteById(id);
-		
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		employeeRepository.deleteById(id);
+//		
+//	}
 	 
 }

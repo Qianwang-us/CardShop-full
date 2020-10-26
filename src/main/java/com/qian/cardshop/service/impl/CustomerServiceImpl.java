@@ -19,10 +19,10 @@ public class CustomerServiceImpl implements CustomerService {
 		this.customerRepository = customerRepository;
 	}
 
-	@Override
-	public List<Customer> findAll() {
-		return customerRepository.findAll();
-	}
+//	@Override
+//	public List<Customer> findAll() {
+//		return customerRepository.findAll();
+//	}
 
 	@Override
 	public Optional<Customer> findById(Integer id) {
@@ -34,9 +34,9 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.save(customer);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		customerRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		customerRepository.deleteById(id);
+//	}
 
 }

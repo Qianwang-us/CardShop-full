@@ -6,11 +6,11 @@ import java.util.Optional;
 import com.qian.cardshop.model.Receiver;
 
 public interface ReceiverService {
-	public List<Receiver> findAll();
+//	public List<Receiver> findAll();
 
 	public Optional<Receiver> findById(Integer id);
 
 	public void save(Receiver receiver);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 }

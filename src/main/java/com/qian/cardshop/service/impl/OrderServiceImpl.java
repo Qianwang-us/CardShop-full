@@ -21,10 +21,10 @@ public class OrderServiceImpl implements OrderService {
 		this.orderRepository = orderRepository;
 	}
 
-	@Override
-	public List<Order> findAll() {
-		return orderRepository.findAll();
-	}
+//	@Override
+//	public List<Order> findAll() {
+//		return orderRepository.findAll();
+//	}
 
 	@Override
 	public Optional<Order> findById(Integer id) {
@@ -36,10 +36,10 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.save(order);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		orderRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		orderRepository.deleteById(id);
+//	}
 
 	@Override
 	public List<Order> getOrderHistory(Customer customer) {

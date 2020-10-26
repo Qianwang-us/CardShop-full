@@ -150,6 +150,7 @@ public class CartController {
 		
 		
 		model.addAttribute("cart", tempCart);
+		model.addAttribute("empty", (tempCart.getCartItems().size()==0));
 		
 		// calculate payment summary for cart page
 		Double itemsTotal = PaymentSummary.calculateItemsTotal(tempCart.getCartItems());

@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.qian.cardshop.model.Item;
 
 public interface ItemService {
-	public List<Item> findAll();
+//	public List<Item> findAll();
 
 	public Optional<Item> findById(Integer id);
 

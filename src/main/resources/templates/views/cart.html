@@ -20,6 +20,13 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main id="top" >
+  	<!-- show message if cart is empty -->
+  	<th:block th:if="${empty} == true" >
+      Your cart is empty now. Go to <a th:href="@{/}">HOME</a> page to shop more!
+    </th:block>
+		  
+	<!-- show cart items and payment summary only when cart is not empty -->
+	<th:block th:if="${empty} == false">  
     <form action="#" th:action="@{/order/shipping_address}" th:object="${cart}" method="POST"> 
     
       <div class="shopping-cart">
@@ -72,11 +79,10 @@
           <button class="checkout-btn" type="submit" th:formaction="@{/save_cart}">Save Cart</button> -->
           <!-- <div class="bottom"><a href="#top">Back to top</a></div> -->
         </div>
-     
-		
       </div>
-      
-    </form> 
+    </form>
+    
+    </th:block> 
   </main>
   <!-- <script th:src="@{/js/cart.js}"></script> -->
 </body>

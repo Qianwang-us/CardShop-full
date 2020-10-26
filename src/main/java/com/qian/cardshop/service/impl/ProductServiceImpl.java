@@ -37,15 +37,15 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByCategory(category);
 	}
 
-	@Override
-	public void save(Product product) {
-		productRepository.save(product);
-	}
+//	@Override
+//	public void save(Product product) {
+//		productRepository.save(product);
+//	}
 
-	@Override
-	public void deleteById(Integer id) {
-		productRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		productRepository.deleteById(id);
+//	}
 
 	@Override
 	public List<Product> findByCategoryOrderByCreatedOnDesc(Category category) {

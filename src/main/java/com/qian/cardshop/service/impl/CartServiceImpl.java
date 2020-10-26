@@ -30,9 +30,9 @@ public class CartServiceImpl implements CartService {
 		cartRepository.save(cart);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		cartRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		cartRepository.deleteById(id);
+//	}
 
 }

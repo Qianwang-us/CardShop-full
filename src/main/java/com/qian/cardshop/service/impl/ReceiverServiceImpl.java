@@ -18,10 +18,10 @@ public class ReceiverServiceImpl implements ReceiverService{
 		this.receiverRepository = receiverRepository;
 	}
 
-	@Override
-	public List<Receiver> findAll() {
-		return receiverRepository.findAll();
-	}
+//	@Override
+//	public List<Receiver> findAll() {
+//		return receiverRepository.findAll();
+//	}
 
 	@Override
 	public Optional<Receiver> findById(Integer id) {
@@ -33,9 +33,9 @@ public class ReceiverServiceImpl implements ReceiverService{
 		receiverRepository.save(receiver);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		receiverRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		receiverRepository.deleteById(id);
+//	}
 	
 }

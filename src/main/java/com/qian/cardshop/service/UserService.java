@@ -7,13 +7,13 @@ import com.qian.cardshop.model.Category;
 import com.qian.cardshop.model.User;
 
 public interface UserService {
-	public List<User> findAll();
+//	public List<User> findAll();
 
 	public Optional<User> findById(Integer id);
 
 	public void save(User user);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 
 	public Optional<User> findByEmail(String userName);
 }

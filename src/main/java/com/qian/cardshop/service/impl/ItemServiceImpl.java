@@ -19,11 +19,11 @@ public class ItemServiceImpl implements ItemService {
 		this.itemRepository = itemRepository;
 	}
 
-	@Override
-	public List<Item> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Item> findAll() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public Optional<Item> findById(Integer id) {

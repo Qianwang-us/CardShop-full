@@ -18,24 +18,24 @@ public class CategoryServiceImpl implements CategoryService{
 		this.categoryRepository = categoryRepository;
 	}
 
-	@Override
-	public List<Category> findAll() {
-		return categoryRepository.findAll();
-	}
+//	@Override
+//	public List<Category> findAll() {
+//		return categoryRepository.findAll();
+//	}
 
 	@Override
 	public Optional<Category> findById(Integer id) {
 		return categoryRepository.findById(id);
 	}
 
-	@Override
-	public void save(Category category) {
-		categoryRepository.save(category);
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		categoryRepository.deleteById(id);		
-	}
+//	@Override
+//	public void save(Category category) {
+//		categoryRepository.save(category);
+//	}
+//
+//	@Override
+//	public void deleteById(Integer id) {
+//		categoryRepository.deleteById(id);		
+//	}
 
 }

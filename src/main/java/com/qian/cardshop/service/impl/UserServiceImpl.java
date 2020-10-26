@@ -20,10 +20,10 @@ public class UserServiceImpl implements UserService{
 		this.userRepository = userRepository;
 	}
 
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+//	@Override
+//	public List<User> findAll() {
+//		return userRepository.findAll();
+//	}
 
 	@Override
 	public Optional<User> findById(Integer id) {
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService{
 
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		userRepository.deleteById(id);
-	}
+//	@Override
+//	public void deleteById(Integer id) {
+//		userRepository.deleteById(id);
+//	}
 
 	@Override
 	public Optional<User> findByEmail(String email) {

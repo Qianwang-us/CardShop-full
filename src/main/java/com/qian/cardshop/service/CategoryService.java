@@ -6,11 +6,11 @@ import java.util.Optional;
 import com.qian.cardshop.model.Category;
 
 public interface CategoryService {
-	public List<Category> findAll();
+//	public List<Category> findAll();
 
 	public Optional<Category> findById(Integer id);
 
-	public void save(Category category);
-
-	public void deleteById(Integer id);
+//	public void save(Category category);
+//
+//	public void deleteById(Integer id);
 }

@@ -10,13 +10,13 @@ import com.qian.cardshop.model.Customer;
 import com.qian.cardshop.model.Order;
 
 public interface OrderService {
-	public List<Order> findAll();
+//	public List<Order> findAll();
 
 	public Optional<Order> findById(Integer id);
 
 	public void save(Order order);
 
-	public void deleteById(Integer id);
+//	public void deleteById(Integer id);
 	
 	public List<Order> getOrderHistory(Customer customer);
 	
