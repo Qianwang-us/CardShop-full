@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.qian.cardshop.model.OrderDetail;
 
+// not used for current project scope
 public interface OrderDetailService {
 //	public List<OrderDetail> findAll();
 //
