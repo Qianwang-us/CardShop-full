@@ -16,8 +16,6 @@ import com.qian.cardshop.model.Product;
 class CardShopApplicationTests {	
 
 	@Autowired
-	private ProductRepository productRepository;
-	@Autowired
 	private HomeController homeController;
 	
 	@Test
@@ -25,15 +23,5 @@ class CardShopApplicationTests {
 		assertThat(homeController).isNotNull();
 	}
 	
-	@Test
-	public void testFindProductById() {
-		Optional<Product> foundProduct = productRepository.findById(1);
-		if(foundProduct.isPresent()) {
-			System.out.println(foundProduct.get());
-		}else {
-			System.out.println("No product found");
-		}
-			
-		//assertThat(foundBook.getAuthor()).isEqualTo("Charles Dickens");
-	}
+	
 }

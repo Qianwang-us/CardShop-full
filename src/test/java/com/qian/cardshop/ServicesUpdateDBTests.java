@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.qian.cardshop.dao.ItemRepository;
 import com.qian.cardshop.model.Cart;
@@ -60,7 +62,8 @@ import com.qian.cardshop.util.PaymentSummary;
  *
  */
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class)
+@Transactional
+//@TestMethodOrder(OrderAnnotation.class)
 public class ServicesUpdateDBTests {
 
 	@Autowired
@@ -68,6 +71,12 @@ public class ServicesUpdateDBTests {
 	
 	@Autowired
 	private CustomerDetailService customerDetailService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 	
 	@Autowired
 	private ItemService itemService;
@@ -87,18 +96,6 @@ public class ServicesUpdateDBTests {
 	@Autowired
 	private ItemRepository itemRepositry;// need extra methods for testing
 	
-	// class variables used for testing
-	// add static to make it be able to transfer data between tests
-	private static User user;
-	private static Customer customer;
-	private static Cart cart;
-	private static Receiver receiver;
-	private static CustomerDetail customerDetail;
-	private static com.qian.cardshop.model.Order order;
-	
-	private static Employee employee;
-
-	
 	// test following save/delete methods in services
 	// - Cart save
 	// - CustomerDetail save
@@ -112,20 +109,20 @@ public class ServicesUpdateDBTests {
 	// Customer
 	
 	@Test
-	@Rollback(false)
-	@Order(1)
+//	@Disabled
+//	@Order(1)
 	public void testSaveUserAndSaveCustomerAndCart() {
 		//need to make sure email is unique for the new user
 		Long emailIdentifier = System.currentTimeMillis();
 		String email=emailIdentifier+"@test.com";
 		//User 
-		user = new User(email, "test", "Junit", "Customer", true, "ROLE_USER");
+		User user = new User(email, "test", "Junit", "Customer", true, "ROLE_USER");
 		
 		//Customer 
-		customer = new Customer();
+		Customer customer = new Customer();
 		user.setCustomer(customer);
 		userService.save(user); // CustomerService.save() and CartService.save() are called by cascading
-		cart = customer.getCart();
+		Cart cart = customer.getCart();
 		
 		assertTrue(user.getUserId() > 0);
 		assertTrue(customer.getCustomerId() > 0);
@@ -133,8 +130,8 @@ public class ServicesUpdateDBTests {
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(2)
+//	@Rollback(false)
+//	@Order(2)
 	public void testSaveItemAndSaveCart() {
 		Integer productId = 1;
 		Product product0 = productService.findById(productId).get();
@@ -145,9 +142,11 @@ public class ServicesUpdateDBTests {
 		Item item0 = new Item(product0);
 		Item item1 = new Item(product1);
 		
+		Integer cartId = 9; // just select one existing cartId from database to test
+		Cart cart = cartService.findById(cartId).get();
 		
-		// add totally 2 items in the cart
-		System.out.println("testSaveItemAndSaveCart, Cart: " + cart);
+		int originalCartItemsSize = cart.getCartItems().size();
+		// add 2 more items in the cart
 		
 		cart.addItem(item0);
 		cart.addItem(item1);
@@ -156,15 +155,20 @@ public class ServicesUpdateDBTests {
 		
 		// retrieve the cart from database by cartId and retrieve its item list has size 2
 		int actualCartItemsSize = cartService.findById(cart.getCartId()).get().getCartItems().size();
-		assertThat(actualCartItemsSize).isEqualTo(2);
+		assertThat(actualCartItemsSize).isEqualTo(originalCartItemsSize + 2);
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(3)
+//	@Rollback(false)
+//	@Order(3)
 	public void testUpdateCartItem() {
+		//Integer cartId = 9; // just select one existing cartId from database to test
+		//Cart cart = cartService.findById(cartId).get();
 		
-		Item item = cart.getCartItems().get(0);
+		int itemId = 20;
+		
+		Item item = itemService.findById(itemId).get();
+		Cart cart = item.getCart();
 		
 		int updatedQuantity = item.getQuantity()+1;
 		item.setQuantity(updatedQuantity);
@@ -178,9 +182,12 @@ public class ServicesUpdateDBTests {
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(4)
+//	@Rollback(false)
+//	@Order(4)
 	public void testDeleteCartItem() {
+		Integer cartId = 9; // just select one existing cartId from database to test
+		Cart cart = cartService.findById(cartId).get();
+		
 		Item item = cart.getCartItems().get(0);
 		int deletedItemId = item.getItemId();
 		int originalSize = cart.getCartItems().size();
@@ -194,36 +201,53 @@ public class ServicesUpdateDBTests {
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(5)
+//	@Rollback(false)
+//	@Disabled
+//	@Order(5)
 	public void testSaveReceiver() {
-		receiver = new Receiver("Junit", "Test", "Test Str", "", "Boston", "MA", "02222", "0123456789");
+		Receiver receiver = new Receiver("Junit", "Test", "Test Str", "", "Boston", "MA", "02222", "0123456789");
 		receiverService.save(receiver);
 		assertTrue(receiver.getReceiverId() > 0);
 	}
 	
 	// currently website only support that customer detail comes from receiver info
 	@Test
-	@Rollback(false)
-	@Order(6)
+//	@Rollback(false)
+//	@Disabled
+//	@Order(6)
 	public void testSaveCustomerDetail() {
-		customerDetail = new CustomerDetail(receiver);	
+		int receiverId = 9; // just select one exist receiver id to test
+		int customerId = 9; // just select one exist customer id to test, use the customer created by saveCustomer test if possible
+		
+		Receiver receiver = receiverService.findById(receiverId).get();
+		CustomerDetail customerDetail = new CustomerDetail(receiver);	
+		
+		Customer customer = customerService.findById(customerId).get();
+		
 		customer.setCustomerDetail(customerDetail);
 		customerDetailService.save(customerDetail);
 		assertTrue(customerDetail.getCustomerDetailId() > 0);
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(7)
+//	@Rollback(false)
+//	@Order(7)
 	public void testSaveOrder() {
+		Integer cartId = 9; // just select one existing cartId from database to test
+		Cart cart = cartService.findById(cartId).get();
+		
+		Customer customer = cart.getCustomer();
+		int receiverId = 9;
+		
+		Receiver receiver = receiverService.findById(receiverId).get();
+		
 		String billingAddressType = "RECEIVER";
 		ArrayList<Double> payment = PaymentSummary.calculatePayment(cart.getCartItems());
 		double itemsTotal = payment.get(0);
 		double shipping = payment.get(1);
 		double tax = payment.get(2);
 		double orderTotal = payment.get(3);
-		order = new com.qian.cardshop.model.Order(customer, receiver, billingAddressType, itemsTotal, shipping, tax, orderTotal);
+		com.qian.cardshop.model.Order order = new com.qian.cardshop.model.Order(customer, receiver, billingAddressType, itemsTotal, shipping, tax, orderTotal);
 		
 		List<Item> items = cart.getCartItems();
 		int expectedItemsSize = items.size();
@@ -244,16 +268,17 @@ public class ServicesUpdateDBTests {
 	
 	// Admin
 	@Test
-	@Order(8)
+//	@Disabled
+//	@Order(8)
 	public void testSaveUserAndSaveEmployee() {
 		//need to make sure email is unique for the new user
 		Long emailIdentifier = System.currentTimeMillis();
 		String email=emailIdentifier+"@test.com";
 		//User 
-		user = new User(email, "admin", "Junit", "Admin", true, "ROLE_ADMIN");
+		User user = new User(email, "admin", "Junit", "Admin", true, "ROLE_ADMIN");
 		
 		//Customer 
-		employee = new Employee();
+		Employee employee = new Employee();
 		user.setEmployee(employee);
 		userService.save(user); // EmployeeService.save() and CartService.save() are called by cascading
 		
@@ -262,9 +287,13 @@ public class ServicesUpdateDBTests {
 	}
 	
 	@Test
-	@Rollback(false)
-	@Order(9)
+//	@Rollback(false)
+//	@Disabled
+//	@Order(9)
 	public void testSaveOrderWithUpdatedStatus() {
+		int orderId = 8;
+		com.qian.cardshop.model.Order order = orderService.findById(orderId).get();
+		
 		String orderStatus = order.getOrderStatus();
 		String expectedStatus = OrderStatus.getNextStatus(orderStatus);
 		order.setOrderStatus(expectedStatus);
