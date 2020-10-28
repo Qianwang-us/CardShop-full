@@ -85,7 +85,15 @@ public class AccountController {
 		newUser.setRole("ROLE_USER");
 		newUser.setEnabled(true);
 		newUser.setCustomer(new Customer());
-		userService.save(newUser);
+		
+		// if the email is already registered, need to tell user to register another one
+		try {
+			userService.save(newUser);
+		}catch(Exception e) {
+			model.addAttribute("message", "Your email is already registered, please try another one.");
+			return "views/register";
+		}
+		
 		
 		}else {
 			if (EmployeeRegister.isValid(passcode)) {
@@ -94,11 +102,17 @@ public class AccountController {
 				newUser.setRole("ROLE_ADMIN");
 				newUser.setEnabled(true);
 				newUser.setEmployee(new Employee());
-				userService.save(newUser);
+				
+				try {
+					userService.save(newUser);
+				}catch(Exception e) {
+					model.addAttribute("message", "Your email is already registered, please try another one.");
+					return "views/register";
+				}
 			}else {
 				
 				// go to register page if the passcode is not valid
-				model.addAttribute("message", "You passcode is not valid, please try again.");
+				model.addAttribute("message", "Your passcode is not valid, please try again.");
 				return "views/register";
 			}
 		}

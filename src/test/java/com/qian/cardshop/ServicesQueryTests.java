@@ -41,14 +41,14 @@ import com.qian.cardshop.service.ReceiverService;
 import com.qian.cardshop.service.UserService;
 
 /**
- * This test class test query type services 
- * create/update/delete type service test refer to ServicesUpdateDBTests class
+ * This test class test query type service methods
+ * create/update/delete type service methods test refer to ServicesUpdateDBTests class
  * 
  * @author qianwang
  *
  */
 @SpringBootTest
-public class ServicesTests {
+public class ServicesQueryTests {
 
 	@Autowired
 	private CartService cartService;

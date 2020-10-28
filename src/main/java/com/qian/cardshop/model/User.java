@@ -69,9 +69,9 @@ public class User {
 	// constructors
 	public User() {}
 
-	public User(Integer userId, String email, String password, String firstName, String lastName, Boolean enabled,
+	public User(String email, String password, String firstName, String lastName, Boolean enabled,
 			String role) {
-		this.userId = userId;
+		
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;

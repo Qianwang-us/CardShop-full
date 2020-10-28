@@ -87,6 +87,16 @@ public class Customer{
 
 	// getters and setters
 	
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
 	public CustomerDetail getCustomerDetail() {
 		return customerDetail;
 	}

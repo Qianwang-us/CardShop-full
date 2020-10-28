@@ -38,7 +38,7 @@
 			th:errors="*{newUser.uName}" class="error">Name Error</span>
 		</div> -->
 		<th:block th:if="${message} != null">
-      	<span th:text="${message}"></span>
+      	<span th:text="${message}" class="error"></span>
       	</th:block>
       	
       	<div th:if="${#fields.hasErrors()}">
