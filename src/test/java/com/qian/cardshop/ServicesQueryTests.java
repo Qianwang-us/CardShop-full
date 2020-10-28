@@ -17,10 +17,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ContextConfiguration;
 
+import com.qianwang.cardshop.CardShopApplication;
 import com.qianwang.cardshop.model.Cart;
 import com.qianwang.cardshop.model.Category;
 import com.qianwang.cardshop.model.Customer;
@@ -50,7 +55,11 @@ import com.qianwang.cardshop.util.ProductList;
  * @author qianwang
  *
  */
-@SpringBootTest
+//@SpringBootTest
+//@DataJpaTest
+//@AutoConfigureTestDatabase(replace=Replace.NONE)
+//@ContextConfiguration(classes = CardShopApplication.class)
+@SpringBootTest(classes = CardShopApplication.class)
 public class ServicesQueryTests {
 
 	@Autowired

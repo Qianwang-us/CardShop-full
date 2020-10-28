@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.qianwang.cardshop.CardShopApplication;
 import com.qianwang.cardshop.dao.ItemRepository;
 import com.qianwang.cardshop.model.Cart;
 import com.qianwang.cardshop.model.Customer;
@@ -61,7 +62,7 @@ import com.qianwang.cardshop.util.PaymentSummary;
  * @author qianwang
  *
  */
-@SpringBootTest
+@SpringBootTest(classes = CardShopApplication.class)
 @Transactional
 //@TestMethodOrder(OrderAnnotation.class)
 public class ServicesUpdateDBTests {
