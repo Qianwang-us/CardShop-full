@@ -42,6 +42,12 @@
              th:text="${user.name}">
      </option>
 	</select> -->
+	
+	<!-- if it is home page, can trigger web service to get product list -->
+	<th:block th:if="${isHome}">
+      <a ><button id="view-btn">How many days to next Christmas Day?</button></a>
+      <span id="days"></span>
+  	</th:block>
     
 
     <!-- main product items display -->
@@ -71,6 +77,7 @@
       </div>
       </div>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script th:src="@{/js/index.js}"></script>
 </body>
 

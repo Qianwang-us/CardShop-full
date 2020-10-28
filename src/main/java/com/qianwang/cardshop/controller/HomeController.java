@@ -73,6 +73,7 @@ public class HomeController {
 		List<Product> products = productService.findAll(pageable);
 		
 		model.addAttribute("products", products);
+		model.addAttribute("isHome", true);
 		return "views/product_list";
 	}
 

@@ -18,6 +18,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.qianwang.cardshop.model.Cart;
 import com.qianwang.cardshop.model.Category;
@@ -39,6 +41,7 @@ import com.qianwang.cardshop.service.OrderService;
 import com.qianwang.cardshop.service.ProductService;
 import com.qianwang.cardshop.service.ReceiverService;
 import com.qianwang.cardshop.service.UserService;
+import com.qianwang.cardshop.util.ProductList;
 
 /**
  * This test class test query type service methods
@@ -193,6 +196,13 @@ public class ServicesQueryTests {
 	public void testFindAllProduct() {
 		List<Product> products = productService.findAll();
 		assertThat(products.size()).isGreaterThan(5);			
+	}
+	
+	@Test
+	public void testFindAllProductWithPageSize() {
+		Pageable pageable = PageRequest.of(0, ProductList.pageSize);
+		List<Product> products = productService.findAll(pageable);
+		assertThat(products.size()).isGreaterThan(1).isLessThanOrEqualTo(ProductList.pageSize);			
 	}
 	
 	@ParameterizedTest
