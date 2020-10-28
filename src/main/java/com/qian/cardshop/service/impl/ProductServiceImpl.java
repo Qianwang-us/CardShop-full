@@ -3,6 +3,7 @@ package com.qian.cardshop.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.qian.cardshop.dao.ProductRepository;
@@ -60,6 +61,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByCategoryOrderByPriceDesc(Category category) {
 		return productRepository.findByCategoryOrderByPriceDesc(category);
+	}
+
+	@Override
+	public List<Product> findAll(Pageable pageable) {
+		return productRepository.findAllByOrderByCreatedOnDesc(pageable);
 	}
 
 }

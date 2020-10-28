@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ import com.qian.cardshop.security.SecurityUtils;
 import com.qian.cardshop.service.CategoryService;
 import com.qian.cardshop.service.ProductService;
 import com.qian.cardshop.service.UserService;
+import com.qian.cardshop.util.ProductList;
 
 @Controller
 public class HomeController {
@@ -50,7 +53,7 @@ public class HomeController {
 			email = SecurityUtils.getUserName();						
 
 		}catch(Exception e) {
-			logger.warn("Home Controller: Wrong with SecurityUtils.getUserName() ");
+			logger.warn("method index: Wrong with SecurityUtils.getUserName() ");
 		}
 		
 		// use case: user login, redirect to home page, set session currentUser if it is not set yet
@@ -62,11 +65,14 @@ public class HomeController {
 				logger.trace("index, path(/), user: " + user);
 			}
 		}catch(Exception e) {
-			logger.warn("index: Wrong with session ");
+			logger.warn("method index: Wrong with session ");
 		}
 		
-		List<Product> product = productService.findAll();
-		model.addAttribute("products", product);
+		//List<Product> products = productService.findAll();
+		Pageable pageable = PageRequest.of(0, ProductList.pageSize);
+		List<Product> products = productService.findAll(pageable);
+		
+		model.addAttribute("products", products);
 		return "views/product_list";
 	}
 

@@ -2,6 +2,7 @@ package com.qian.cardshop.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.qian.cardshop.model.Category;
@@ -24,5 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	public List<Product> findByCategoryOrderByCreatedOnDesc(Category category);
 	public List<Product> findByCategoryOrderByPriceAsc(Category category);
 	public List<Product> findByCategoryOrderByPriceDesc(Category category);
+	
+	// added for page use
+	public List<Product> findAllByOrderByCreatedOnDesc(Pageable pageable);
 	
 }
