@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.qian.cardshop.controller.HomeController;
-import com.qian.cardshop.dao.ProductRepository;
-import com.qian.cardshop.model.Product;
+import com.qianwang.cardshop.controller.HomeController;
+import com.qianwang.cardshop.dao.ProductRepository;
+import com.qianwang.cardshop.model.Product;
 
 @SpringBootTest
 class CardShopApplicationTests {	

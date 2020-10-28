@@ -19,26 +19,26 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.qian.cardshop.model.Cart;
-import com.qian.cardshop.model.Category;
-import com.qian.cardshop.model.Customer;
-import com.qian.cardshop.model.CustomerDetail;
-import com.qian.cardshop.model.Employee;
-import com.qian.cardshop.model.Item;
-import com.qian.cardshop.model.Order;
-import com.qian.cardshop.model.Product;
-import com.qian.cardshop.model.Receiver;
-import com.qian.cardshop.model.User;
-import com.qian.cardshop.service.CartService;
-import com.qian.cardshop.service.CategoryService;
-import com.qian.cardshop.service.CustomerDetailService;
-import com.qian.cardshop.service.CustomerService;
-import com.qian.cardshop.service.EmployeeService;
-import com.qian.cardshop.service.ItemService;
-import com.qian.cardshop.service.OrderService;
-import com.qian.cardshop.service.ProductService;
-import com.qian.cardshop.service.ReceiverService;
-import com.qian.cardshop.service.UserService;
+import com.qianwang.cardshop.model.Cart;
+import com.qianwang.cardshop.model.Category;
+import com.qianwang.cardshop.model.Customer;
+import com.qianwang.cardshop.model.CustomerDetail;
+import com.qianwang.cardshop.model.Employee;
+import com.qianwang.cardshop.model.Item;
+import com.qianwang.cardshop.model.Order;
+import com.qianwang.cardshop.model.Product;
+import com.qianwang.cardshop.model.Receiver;
+import com.qianwang.cardshop.model.User;
+import com.qianwang.cardshop.service.CartService;
+import com.qianwang.cardshop.service.CategoryService;
+import com.qianwang.cardshop.service.CustomerDetailService;
+import com.qianwang.cardshop.service.CustomerService;
+import com.qianwang.cardshop.service.EmployeeService;
+import com.qianwang.cardshop.service.ItemService;
+import com.qianwang.cardshop.service.OrderService;
+import com.qianwang.cardshop.service.ProductService;
+import com.qianwang.cardshop.service.ReceiverService;
+import com.qianwang.cardshop.service.UserService;
 
 /**
  * This test class test query type service methods

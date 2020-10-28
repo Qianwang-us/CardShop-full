@@ -17,27 +17,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.qian.cardshop.dao.ItemRepository;
-import com.qian.cardshop.model.Cart;
-import com.qian.cardshop.model.Customer;
-import com.qian.cardshop.model.CustomerDetail;
-import com.qian.cardshop.model.Employee;
-import com.qian.cardshop.model.Item;
-import com.qian.cardshop.model.Product;
-import com.qian.cardshop.model.Receiver;
-import com.qian.cardshop.model.User;
-import com.qian.cardshop.service.CartService;
-import com.qian.cardshop.service.CategoryService;
-import com.qian.cardshop.service.CustomerDetailService;
-import com.qian.cardshop.service.CustomerService;
-import com.qian.cardshop.service.EmployeeService;
-import com.qian.cardshop.service.ItemService;
-import com.qian.cardshop.service.OrderService;
-import com.qian.cardshop.service.ProductService;
-import com.qian.cardshop.service.ReceiverService;
-import com.qian.cardshop.service.UserService;
-import com.qian.cardshop.util.OrderStatus;
-import com.qian.cardshop.util.PaymentSummary;
+import com.qianwang.cardshop.dao.ItemRepository;
+import com.qianwang.cardshop.model.Cart;
+import com.qianwang.cardshop.model.Customer;
+import com.qianwang.cardshop.model.CustomerDetail;
+import com.qianwang.cardshop.model.Employee;
+import com.qianwang.cardshop.model.Item;
+import com.qianwang.cardshop.model.Product;
+import com.qianwang.cardshop.model.Receiver;
+import com.qianwang.cardshop.model.User;
+import com.qianwang.cardshop.service.CartService;
+import com.qianwang.cardshop.service.CategoryService;
+import com.qianwang.cardshop.service.CustomerDetailService;
+import com.qianwang.cardshop.service.CustomerService;
+import com.qianwang.cardshop.service.EmployeeService;
+import com.qianwang.cardshop.service.ItemService;
+import com.qianwang.cardshop.service.OrderService;
+import com.qianwang.cardshop.service.ProductService;
+import com.qianwang.cardshop.service.ReceiverService;
+import com.qianwang.cardshop.service.UserService;
+import com.qianwang.cardshop.util.OrderStatus;
+import com.qianwang.cardshop.util.PaymentSummary;
 
 /**
  * This test class test service methods which may create, update or delete records in database
@@ -247,7 +247,7 @@ public class ServicesUpdateDBTests {
 		double shipping = payment.get(1);
 		double tax = payment.get(2);
 		double orderTotal = payment.get(3);
-		com.qian.cardshop.model.Order order = new com.qian.cardshop.model.Order(customer, receiver, billingAddressType, itemsTotal, shipping, tax, orderTotal);
+		com.qianwang.cardshop.model.Order order = new com.qianwang.cardshop.model.Order(customer, receiver, billingAddressType, itemsTotal, shipping, tax, orderTotal);
 		
 		List<Item> items = cart.getCartItems();
 		int expectedItemsSize = items.size();
@@ -292,7 +292,7 @@ public class ServicesUpdateDBTests {
 //	@Order(9)
 	public void testSaveOrderWithUpdatedStatus() {
 		int orderId = 8;
-		com.qian.cardshop.model.Order order = orderService.findById(orderId).get();
+		com.qianwang.cardshop.model.Order order = orderService.findById(orderId).get();
 		
 		String orderStatus = order.getOrderStatus();
 		String expectedStatus = OrderStatus.getNextStatus(orderStatus);
