@@ -1,4 +1,4 @@
-package com.qian.cardshop;
+package com.qianwang.cardshop;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -55,11 +55,11 @@ import com.qianwang.cardshop.util.ProductList;
  * @author qianwang
  *
  */
-//@SpringBootTest
+@SpringBootTest
 //@DataJpaTest
 //@AutoConfigureTestDatabase(replace=Replace.NONE)
 //@ContextConfiguration(classes = CardShopApplication.class)
-@SpringBootTest(classes = CardShopApplication.class)
+//@SpringBootTest(classes = CardShopApplication.class)
 public class ServicesQueryTests {
 
 	@Autowired

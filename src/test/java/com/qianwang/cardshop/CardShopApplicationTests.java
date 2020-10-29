@@ -1,4 +1,4 @@
-package com.qian.cardshop;
+package com.qianwang.cardshop;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
