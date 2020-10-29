@@ -1,4 +1,4 @@
-package com.qianwang.cardshop;
+package com.qianwang.cardshop.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
