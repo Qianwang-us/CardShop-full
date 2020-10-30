@@ -20,7 +20,7 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main>
-    <!-- display normal order process sequence referred by employee -->
+    <!-- display normal order process sequence -->
     <div class="order-status-chain">
       Order Process Chain:<br>
       CREATED &gt; INPROCESS &gt; SHIPPED &gt; COMPLETE
@@ -29,7 +29,7 @@
       List of Orders with status: <span th:text="${orderStatus}" class="status"></span>
     </div>
     
-    <!-- drop down list which enables to show backlog based on order status -->
+    <!-- drop down menu which enables to show backlog based on order status -->
     <form action="#" th:action="@{/admin/orders}"
 		 method="get">
       <label for="order_status">Filtered by order status:</label>
@@ -47,6 +47,8 @@
     <form action="#" th:action="@{/admin/update_status}" th:object="${orders}" method="GET"> 
     	<input type="hidden" name="orderStatus" th:value="${orderStatus}"/>
       <table class="order-list">
+      
+      <!-- comment out cancel function for now -->
         <!-- <tr class="order-item">
           <td colspan="6">
           </td>
@@ -66,7 +68,7 @@
           <th>Action</th>
         </tr>
 
-        <!-- template for one order item -->
+        <!-- display order list with check-box for next step -->
         <tr class="order-item" th:each="order : ${orders}">
           <td>
             <input type="checkbox" name="orderIdList" th:value="${order.orderId}">
@@ -105,6 +107,7 @@
       </table>
     </form>
     
+    <!-- Function to quick check on one order by orderId -->
     <form action="#" th:action="@{/admin/view_order}" method="get">
     <div>
     	Quick Order Check. Enter Order ID:

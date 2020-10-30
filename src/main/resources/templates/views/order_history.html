@@ -34,7 +34,7 @@
         </tr>
         
 
-        <!-- template for one order item -->
+        <!-- display order list order by created date/time reverse -->
         <tr class="order-item" th:each="order : ${orders}">
           <td th:text="${order.orderId}">A1000001</td>
           <td th:text="${order.createdOn}">2020-08-10, 13:20</td>         

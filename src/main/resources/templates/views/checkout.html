@@ -21,14 +21,18 @@
 <body>
   <div th:replace="views/fragments/header :: header"></div>
 
+  <!-- Show checkout process -->
   <div class="checkout-process">
     SIGN IN &gt; SHIPPING &gt; <strong>PLACE ORDER</strong>
   </div>
 
   <main id="top" >
-    <!-- <form action=""> -->
       <div class="shopping-cart">
+      
+      <!-- Left part of page  -->
         <div class="left-column">
+        
+        <!-- Top part to show address if available, payment method and billing address -->
           <h2>Review your order</h2>
           <div class="address-payment">
             <div>
@@ -67,12 +71,7 @@
             <div class="product-info">
               <div class="name">Name: <span th:text="${tempItem.product.productName}"></span></div>
               <div>Provider: <span th:text="${tempItem.product.provider}"></span></div>
-
               <div>Quantity: <span th:text="${tempItem.quantity}"></span></div>
-              
-             <!--  <div><a th:href="@{/edit_item(itemId=${tempItem.itemId})}">Update</a></div>
-              
-              <div><a th:href="@{/remove_from_cart(itemId=${tempItem.itemId})}">Delete</a></div> -->
             </div>
 
             <div class="custom-text">
@@ -90,11 +89,11 @@
           
         </div>
 
+		<!-- Right part of the page -->
         <div class="right-column">
-           <!-- <a th:href="@{/order/create_order}"><button class="place-order-btn" type="button">Place Your Order</button></a> --> 
           
           <form action="#" th:action="@{/order/create_order}" th:object="${receiver}" method="POST">
-          
+          <!-- pass on receiver information -->
 		    <input type="hidden" th:field="*{firstName}">
 		    <input type="hidden" th:field="*{lastName}">
           	<input type="hidden" th:field="*{addressLine1}">
@@ -112,6 +111,7 @@
           	<div><button class="place-order-btn" type="submit">Place Your Order</button></div>
           </form>
           
+          <!-- Payment Summary -->
           <table id="order-summary">
             <caption>Payment Summary</caption>
             <tr>
@@ -123,7 +123,7 @@
               <td>$<span th:text="${shipping}"></span></td>
             </tr>
             <tr >
-              <td class="bottom-line">Estimated tax to be collected:</td>
+              <td class="bottom-line">Estimated tax:</td>
               <td class="bottom-line">$<span th:text="${tax}"></span></td>
             </tr>
             <tr class="order-total">
@@ -135,9 +135,6 @@
           <!-- <div class="bottom"><a href="#top">Back to top</a></div> -->
         </div>
       </div>
-   <!--  </form> -->
   </main>
-  <!-- <script src="../js/checkout.js"></script> -->
-  <!-- <script th:src="@{/js/checkout.js}"></script> -->
 </body>
 </html>

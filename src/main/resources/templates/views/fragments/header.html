@@ -12,6 +12,7 @@
     
 	  <div class="header-top-container">
 	    <th:block th:if="${session.currentUser} != null">
+	    
 	    	<!-- admin icon displayed for admin -->
 	    	<th:block th:if="${session.role} == 'ROLE_ADMIN'">
 		      <div class="login">
@@ -29,20 +30,19 @@
 		      </div>
 		    </th:block>
 		    
-		    <!-- Welcome message displayed for both roles -->
+		    <!-- Welcome message displayed for both roles if user already login-->
 	      <div class="login">
       			Welcome, <span th:text="${session.currentUser.firstName}"></span>     	
         	<a th:href="@{/logout}">Logout</a>
           </div>        
       	</th:block>
       
+      	<!-- Show Sign In|Register if user not login yet-->
 	      <th:block th:if="${session.currentUser} == null">
 	      	<div class="login">
-	        	<a th:href="@{/login}">Login</a>
+	        	<a th:href="@{/login}">Sign In</a> | <a th:href="@{/register}">Register</a>
 	        </div>
 	      </th:block>
-      
-	      
       
 	      <!-- <div sec:authorize="isAuthenticated()">
 	      	<div class="login">
@@ -55,7 +55,6 @@
 	 </div>
       
     
-    
     <!-- header menu bar -->
     <div class="header-menu-container">
       <div class="menu-item-logo">
@@ -64,6 +63,7 @@
       <nav class="menu-item">
         <ul>
           <li>
+          <!-- Dropdown menu for Holidays -->
             <div class="dropdown">
               <div>Holidays
                   <i class="fa fa-caret-down"></i>
@@ -78,6 +78,7 @@
             </div>
           </li>
           <li>
+          <!-- Dropdown menu for Events -->
             <div class="dropdown">
               <div>Events
                   <i class="fa fa-caret-down"></i>
@@ -90,7 +91,7 @@
           </li>
           <!-- comment out like product function -->
           <!-- <li><a href="#"><i class="fas fa-heart"></i></a></li> -->
-          <li><a th:href="@{/about_us}">About&nbsp;Us</a></li>
+          <li><a th:href="@{/about_us}">Have&nbsp;Fun</a></li>
         </ul>
       </nav>
     </div>

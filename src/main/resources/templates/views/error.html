@@ -24,6 +24,8 @@
 
 <body>
   <div th:replace="views/fragments/header :: header"></div>
+  
+  <!--  Show error message when exception happens-->
   <p>Sorry, some exception has happened!</p>
   <p>Message: <span th:text="${error}"></span></p>
  <p>You may click <strong><a th:href="@{/}">HERE</a></strong> to go to home page.</p>

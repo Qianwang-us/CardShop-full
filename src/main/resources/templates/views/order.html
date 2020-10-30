@@ -20,18 +20,11 @@
 
 <body>
   <div th:replace="views/fragments/header :: header"></div>
-
-  <!-- <div class="checkout-process">
-    Order Details
-  </div> -->
-  <!-- <div>
-    <a th:href="@{/order/order_history}">Back to Order History</a>
-  </div> -->
   
   <main id="top" >
       <div class="shopping-cart">
       
-      <!-- left part to show order shipping and items -->
+      <!-- left part to show order overview, shipping address and items -->
         <div class="left-column">
           <h2>Order Details</h2>
           <div>
@@ -95,7 +88,7 @@
           </div>  
         </div>
         
-		<!-- right part for displaying order summary -->
+		<!-- right part for displaying order payment summary -->
         <div class="right-column">
           <table id="order-summary">
             <caption>Payment Summary</caption>

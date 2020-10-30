@@ -64,7 +64,7 @@
           <!-- <p><i class="far fa-heart"></i></p> -->
         </div>
 
-        <!-- <form action=""> -->
+		<!-- customized part for text-color, text-font and text content -->
           <div class="customize">
             
             <div class="custom-theme" id="text-color">
@@ -93,21 +93,24 @@
                 <input type="text" id="custom-top" th:field="*{customTop}" size="50" placeholder="Dear XXX(max:50)," maxlength="50"/>
                 <textarea id="custom-body" th:field="*{customBody}" rows="8" cols="55" placeholder="Example: Merry Chrismas!(max:280)" maxlength="280"></textarea>
                 <input id="custom-bottom" type="text" th:field="*{customBottom}" size="50" class="bottom" placeholder="Sincerely, ZZ(max:50)" maxlength="50">
-                
-              
               </fieldset>
-              <!-- <a href="#" class="how">How to customize your post cards</a> -->
 
               <div class="buttons">
                 <button type="button" class="preview-btn">Preview</button>
-                <!-- <a href="cart.html"><button type="button" class="cart-btn">Add to cart</button></a> -->
-                <button type="submit" class="cart-btn">Add to cart</button>
+                
+                <!-- add item to the cart -->
+                <th:block th:if="${item.itemId} == null">
+		        	<button type="submit" class="cart-btn">Add to cart</button>
+		      	</th:block>
+		      	
+		      	<!-- update item in the cart -->
+		      	<th:block th:if="${item.itemId} != null">
+		        	<button type="submit" class="cart-btn">Update</button>
+		      	</th:block>
               </div>
-
-
+              
             </div>
           </div>
-        <!-- </form> -->
       </div>
     </div>
 </form>

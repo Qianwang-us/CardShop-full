@@ -117,7 +117,7 @@ public class AccountController {
 			}
 		}
 		
-		model.addAttribute("message", "You've registered successfully, please login.");
+		model.addAttribute("message", "You've registered successfully, please sign in.");
 		
 		// once successfully registered, go to login page to indicate user to login with new account
 		return "views/login";

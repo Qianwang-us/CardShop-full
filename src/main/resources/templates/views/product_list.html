@@ -18,8 +18,10 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main>
+  <!-- display category if available -->
   	<div th:if="${categoryName != null}">
     Home &gt; <span th:text="${categoryName}"></span>
+    
     <!-- main sort options -->
      <form action="#" th:action="@{/category}"
 		 method="POST">
@@ -34,16 +36,8 @@
     </form>
   	</div>
   	
-  	<!-- <select class="form-control" name="example" id="example">
-     <option value="0">ALL</option>
-     <option th:each="user : ${allUsers}"
-             th:value="${user.id}"
-             th:selected="${user.isSelected(lastselected)}"
-             th:text="${user.name}">
-     </option>
-	</select> -->
 	
-	<!-- if it is home page, can trigger web service to get product list -->
+	<!-- if it is home page, can trigger web service to show left days to Christmas day -->
 	<th:block th:if="${isHome}">
       <a ><button id="view-btn">How many days to next Christmas Day?</button></a>
       <span id="days"></span>
@@ -62,10 +56,12 @@
           </a>
         </div>
         <div class="subitem-container">
+        
         <!-- comment out like product function -->
           <!-- <div class="favoriate">
             <i class="far fa-heart"></i>
           </div> -->
+          
           <div>
             <ul>
             <li>Name: <span th:text="${tempProduct.productName}" th:remove="tag">userName</span></li>
@@ -77,6 +73,7 @@
       </div>
       </div>
   </main>
+  <!-- jQuery used for Ajax for retrieving info from web service -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script th:src="@{/js/index.js}"></script>
 </body>

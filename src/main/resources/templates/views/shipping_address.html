@@ -48,6 +48,8 @@
 	  <a th:href="@{/order/checkout(cartId=${cartId})}"><button type="button">Deliver to this address</button></a>
   	</div>
   </th:block>
+  
+  <!-- Display the message below if no personal address is saved yet -->
   <th:block th:if="${customerDetail == null}"> 	
       <span th:text="${customerName}"></span><br>
       <span>No address is available.</span><br>
@@ -88,13 +90,8 @@
       <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error"> 
 		City error</span>
       
-      <label for="tel">Phone number<span class="required">*</span></label>
-      <input type="tel" id="tel" th:field="*{phone}" pattern = "^[(]?\d{3}[)]?[\s.-]?\d{3}[\s.-]?\d{4}$" required/>
-      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"> 
-		Phone error</span>
-
       <label for="state">State<span class="required">*</span></label>
-      <input type="text" id="state" th:field="*{state}" pattern = "^(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))$" required/>
+      <input type="text" id="state" placeholder="Please enter state postal code, such as MA" th:field="*{state}" pattern = "^(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))$" required/>
       <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="error"> 
 		State error</span>
       
@@ -102,16 +99,15 @@
       <input type="text" id="zip" th:field="*{zipCode}" pattern = "^\d{5}(?:-\d{4})?$" required/>
       <span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="error"> 
 		Zip code error</span>
-      
+		
+      <label for="tel">Phone number<span class="required">*</span></label>
+      <input type="tel" id="tel" th:field="*{phone}" pattern = "^[(]?\d{3}[)]?[\s.-]?\d{3}[\s.-]?\d{4}$" required/>
+      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"> 
+		Phone error</span>
+		
+		<!-- Allow user to choose billing address -->
         <fieldset>
           <legend>Select billing address</legend> 
-          <!-- <label>        
-          <input type="radio" th:field="${billingAddressType}" th:value="RECEIVER"> Billing address same as shipping
-        </label><br>
-          <label>
-          <input type="radio" th:field="${billingAddressType}" th:value="CUSTOMER"> Billing address same as your personal address
-          </label> -->
-          
           <label>        
           <input type="radio" name="billingAddressType" th:value="RECEIVER" checked> Billing address same as shipping address
         </label><br>
@@ -122,9 +118,6 @@
           	</label>   			
   		</th:block>
         
-          <!-- <label>
-          <input type="radio" name="billingAddressType" th:value="CUSTOMER"> Billing address same as your personal address
-          </label> -->
         </fieldset>
         
       <label>

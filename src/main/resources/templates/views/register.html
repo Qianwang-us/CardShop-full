@@ -30,13 +30,7 @@
     <form action="#" th:action="@{/register/save}" th:object="${newUser}" method="post">
     
       <div class="container">
-      	<!-- <div>
-			<input id="uName" th:field="${newUser.uName}" type="text"
-				class="validate" /> 
-			<label for="uName">Name</label> 
-			<span th:if="${#fields.hasErrors('newUser.uName')}"
-			th:errors="*{newUser.uName}" class="error">Name Error</span>
-		</div> -->
+      	<!-- display message if the email if already registered -->
 		<th:block th:if="${message} != null">
       	<span th:text="${message}" class="error"></span>
       	</th:block>
@@ -67,14 +61,24 @@
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"> 
 		Password error</span>
 		
+		<!-- Part used by Employee register only -->
 		<th:block th:if="${isEmployee} == true">
 			<label for="passcode">Passcode for employee registration</label>
 			<input type="password" id="passcode" name="passcode">
 		</th:block>
         <button type="submit">CREATE AN ACCOUNT</button>
+        
+        <!-- Provide the other register link -->
+        <th:block th:if="${isEmployee} == null">
+        	<a th:href="@{/register/{isEmployee}(isEmployee=true)}">Register as employee</a>
+      	</th:block>
+      	<th:block th:if="${isEmployee} == true">
+			<a th:href="@{/register}">Register as customer</a>
+		</th:block>
       </div>
     </form>
 
+	<!-- Provide link to sign in -->
     <div class="changePage">Already have an account?</div>
     <a th:href="@{/login}"><button type="button">SIGN IN</button></a>
   </main>

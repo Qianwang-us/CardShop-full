@@ -36,7 +36,7 @@
         <div class="left-column">
           <h2>Shopping Cart</h2>
 
-          <!-- product #1 -->
+          <!-- for each item in the cart -->
           <div class="item" th:each="tempItem : ${cart.cartItems}">
 
             <div class="card-img">
@@ -75,8 +75,6 @@
           <p>Subtotal: $<span th:text="${itemsTotal}"></span></p>
           <a th:href="@{/order/shipping_address(cartId=${cart.cartId})}"><button class="checkout-btn" type="button">Proceed to checkout</button></a> 
           
-          <!-- <button class="checkout-btn" type="submit">Proceed to checkout</button>
-          <button class="checkout-btn" type="submit" th:formaction="@{/save_cart}">Save Cart</button> -->
           <!-- <div class="bottom"><a href="#top">Back to top</a></div> -->
         </div>
       </div>

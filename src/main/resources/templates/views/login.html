@@ -26,22 +26,20 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main>
+   	<!-- Show register successfully message if available -->
   	<th:block th:if="${message} != null">
       <span th:text="${message}"></span>
       </th:block>
       
+      <!-- Show error message if login error -->
       <th:block th:if="${error} != null">
       <span>Incorrect email or password, please try it again</span>
       </th:block>
+      
+      <!-- Login Part -->
     <h2>Sign in to your account</h2>
     <form action="#" th:action="@{/login/authenticate}" method="post">
       <div class="container">
-        <!-- <div>
-          <input type="radio" id="customer" name="role" th:value="customer" checked>
-          <label for="customer">Customer</label>
-          <input type="radio" id="admin" name="role" th:value="role">
-          <label for="admin">Admin</label>
-        </div> -->
         <label for="email" >Email address</label>
         <input type="text" id="email" name="username" required>
         <label for="password">Password</label>
@@ -50,6 +48,7 @@
       </div>
     </form>
 
+	<!-- Link to register for new user, different parameters in register link for customer and admin-->
     <div class="changePage">New to iCard?</div>
     <a th:href="@{/register}"><button type="button">CREATE AN ACCOUNT</button></a>
     <a th:href="@{/register/{isEmployee}(isEmployee=true)}">Register as employee</a>
