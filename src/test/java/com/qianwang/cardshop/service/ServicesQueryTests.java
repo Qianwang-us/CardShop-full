@@ -284,18 +284,6 @@ public class ServicesQueryTests {
 		User foundUser = userService.findByEmail(email).get();
 		assertNotNull(foundUser);			
 	}
-	
-	// test save/delete function in service
-	// - Cart save
-	// - CustomerDetail save
-	// - customer save
-	// - Employee save
-	
-	// - Item service - save, delete 
-	// - Order save
-	// - Receiver save
-	// - User save
-	
-	
+
 	
 }
