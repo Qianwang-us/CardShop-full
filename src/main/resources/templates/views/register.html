@@ -28,7 +28,9 @@
   <main>
     <h2>Create your account</h2>
     <form action="#" th:action="@{/register/save}" th:object="${newUser}" method="post">
-    
+    	<th:block th:if="${isEmployee} == true">
+			<input type="hidden" th:value=${isEmployee} name="isEmployee"/>
+		</th:block>
       <div class="container">
       	<!-- display message if the email if already registered -->
 		<th:block th:if="${message} != null">

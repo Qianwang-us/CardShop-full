@@ -2,6 +2,8 @@ package com.qianwang.cardshop.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class AccountController {
 	
 	@Autowired
 	UserService userService;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * When user is registered as customer
@@ -72,9 +76,16 @@ public class AccountController {
 	 * @return
 	 */
 	@PostMapping("/register/save")
-	public String processRegister(@Valid @ModelAttribute("newUser") User newUser, Errors errors, Model model, @RequestParam(value="passcode", required=false) String passcode) {
+	public String processRegister(@Valid @ModelAttribute("newUser") User newUser, Errors errors, Model model, @RequestParam(value="isEmployee", required=false) boolean isEmployee, @RequestParam(value="passcode", required=false) String passcode) {
+		
+		logger.trace("processRegister, isEmployee: " + isEmployee);
 		
 		if(errors.hasErrors()) {
+			model.addAttribute("newUser", newUser);
+			if(isEmployee) {
+				model.addAttribute("isEmployee", isEmployee);
+				return "views/register";
+			}
 			return "views/register";
 		}
 		
@@ -91,6 +102,11 @@ public class AccountController {
 			userService.save(newUser);
 		}catch(Exception e) {
 			model.addAttribute("message", "Your email is already registered, please try another one.");
+			model.addAttribute("newUser", newUser);
+			if(isEmployee) {
+				return "views/register";
+			}
+			
 			return "views/register";
 		}
 		
@@ -107,12 +123,16 @@ public class AccountController {
 					userService.save(newUser);
 				}catch(Exception e) {
 					model.addAttribute("message", "Your email is already registered, please try another one.");
+					model.addAttribute("newUser", newUser);
+					model.addAttribute("isEmployee", isEmployee);
 					return "views/register";
 				}
 			}else {
 				
 				// go to register page if the passcode is not valid
 				model.addAttribute("message", "Your passcode is not valid, please try again.");
+				model.addAttribute("newUser", newUser);
+				model.addAttribute("isEmployee", isEmployee);
 				return "views/register";
 			}
 		}

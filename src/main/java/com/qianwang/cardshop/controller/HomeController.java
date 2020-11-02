@@ -191,9 +191,16 @@ public class HomeController {
 		// set up new item with chosen product and pass it to product page
 		Optional<Product> tempProduct = productService.findById(productId);
 
-		if (tempProduct.isEmpty()) {
-			throw new ProductNotFoundException("Product with id " + productId + " is not found");
+		try {
+			if (tempProduct.isEmpty()) {
+				throw new ProductNotFoundException("Product with id " + productId + " is not found");
+			}
+		}catch(ProductNotFoundException e) {
+			logger.warn("Exception: " + e.getMessage());
+			model.addAttribute("error", e.getMessage());
+			return "views/error";
 		}
+		
 		
 		Item tempItem = new Item(tempProduct.get());
 		model.addAttribute("item", tempItem);
