@@ -122,17 +122,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		                "/register/**",
 		                "/",
 		                "/about_us",
-		                //"/product/**",
 		                "/category/**").permitAll()
 		        .antMatchers("/admin**"
 		        		)
 				.hasRole("ADMIN")
 				.antMatchers(
 						"/product/**",
-						"/add_to_cart/**",
-						"/edit_item/**",
-						"/view_cart/**",
-						"/remove_from_cart/**"
+						"/cart/**"
+//						"/add_to_cart/**",
+//						"/edit_item/**",
+//						"/view_cart/**",
+//						"/remove_from_cart/**"
 						)
 				.hasRole("USER")
 				.antMatchers("/order/**")

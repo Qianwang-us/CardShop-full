@@ -29,7 +29,7 @@
   <div th:replace="views/fragments/header :: header"></div>
 
   <main>
-   <form action="#" th:action="@{/add_to_cart}"
+   <form action="#" th:action="@{/cart/add}"
 		th:object="${item}" method="POST">
 		<input type="hidden" th:field="*{itemId}" id="itemId">
 		<input type="hidden" th:field="*{product}" id="product">

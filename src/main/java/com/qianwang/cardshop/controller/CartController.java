@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +32,7 @@ import com.qianwang.cardshop.util.PaymentSummary;
  *
  */
 @Controller
+@RequestMapping("/cart")
 public class CartController {
 	
 	@Autowired
@@ -52,7 +54,8 @@ public class CartController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/edit_item")
+	//@GetMapping("/edit_item")
+	@GetMapping("/edit")
 	public String editItem(@RequestParam("itemId") int itemId, Model model) {
 
 		Optional<Item> tempItem = itemService.findById(itemId);
@@ -74,7 +77,8 @@ public class CartController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PostMapping("/add_to_cart")
+	//@PostMapping("/add_to_cart")
+	@PostMapping("/add")
 	public String addToCart(@Valid @ModelAttribute("item") Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
 
 		if(errors.hasErrors()) {
@@ -116,7 +120,7 @@ public class CartController {
 
 		redirectAttributes.addAttribute("cartId", tempCart.getCartId());
 
-		return "redirect:/view_cart";
+		return "redirect:/cart/view";
 	}
 
 	/**
@@ -127,7 +131,8 @@ public class CartController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/view_cart")
+	//@GetMapping("/view_cart")
+	@GetMapping("/view")
 	public String viewCart(@RequestParam(required=false) Integer cartId, Model model) {
 		User user = null;
 		Cart tempCart = null;
@@ -173,7 +178,8 @@ public class CartController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@GetMapping("/remove_from_cart")
+	//@GetMapping("/remove_from_cart")
+	@GetMapping("/remove")
 	public String removeFromCart(@RequestParam("itemId") int itemId, RedirectAttributes redirectAttributes) {
 		Optional<Item> item = itemService.findById(itemId);
 		if (item.isEmpty()) {
@@ -187,6 +193,6 @@ public class CartController {
 		
 		redirectAttributes.addAttribute("cartId", cart.getCartId());
 
-		return "redirect:/view_cart";
+		return "redirect:/cart/view";
 	}
 }

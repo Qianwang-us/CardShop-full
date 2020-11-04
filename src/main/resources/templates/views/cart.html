@@ -48,9 +48,9 @@
               <div>Provider: <span th:text="${tempItem.product.provider}"></span></div>
 
               <div>Quantity: <span th:text="${tempItem.quantity}"></span></div>
-              <div><a th:href="@{/edit_item(itemId=${tempItem.itemId})}">Update</a></div>
+              <div><a th:href="@{/cart/edit(itemId=${tempItem.itemId})}">Update</a></div>
               <!-- <div class="delete">Delete</div> -->
-              <div><a th:href="@{/remove_from_cart(itemId=${tempItem.itemId})}">Delete</a></div>
+              <div><a th:href="@{/cart/remove(itemId=${tempItem.itemId})}">Delete</a></div>
             </div>
 
             <div class="custom-text">

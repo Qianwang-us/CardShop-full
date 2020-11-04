@@ -23,7 +23,7 @@
 		    <!-- cart, orders displayed for customer  -->
 		    <th:block th:if="${session.role} == 'ROLE_USER'">
 		      <div class="cart">
-		        <a th:href="@{/view_cart}"><i class="fas fa-shopping-cart"></i></a>
+		        <a th:href="@{/cart/view}"><i class="fas fa-shopping-cart"></i></a>
 		      </div>
 		      <div class="login">
 		        <a th:href="@{/order/order_history}">Orders</a>
