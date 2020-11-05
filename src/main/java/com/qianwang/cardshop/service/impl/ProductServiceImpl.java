@@ -3,6 +3,8 @@ package com.qianwang.cardshop.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +66,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findAll(Pageable pageable) {
+	public Page<Product> findAll(Pageable pageable) {
+		return productRepository.findAllByOrderByCreatedOnDesc(pageable);
+	}
+
+	@Override
+	public Page<Product> findPaginated(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 		return productRepository.findAllByOrderByCreatedOnDesc(pageable);
 	}
 

@@ -120,6 +120,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //					.hasAnyRole("ADMIN", "USER")
 				.antMatchers(                    		
 		                "/register/**",
+		                "/page/**",
 		                "/",
 		                "/about_us",
 		                "/category/**").permitAll()

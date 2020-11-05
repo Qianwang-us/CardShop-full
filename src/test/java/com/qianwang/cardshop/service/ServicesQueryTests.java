@@ -210,7 +210,7 @@ public class ServicesQueryTests {
 	@Test
 	public void testFindAllProductWithPageSize() {
 		Pageable pageable = PageRequest.of(0, ProductList.pageSize);
-		List<Product> products = productService.findAll(pageable);
+		List<Product> products = productService.findAll(pageable).getContent();
 		assertThat(products.size()).isGreaterThan(1).isLessThanOrEqualTo(ProductList.pageSize);			
 	}
 	

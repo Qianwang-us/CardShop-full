@@ -3,6 +3,7 @@ package com.qianwang.cardshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.qianwang.cardshop.model.Category;
@@ -15,7 +16,7 @@ public interface ProductService {
 	public Optional<Product> findById(Integer id);
 	
 	public List<Product> findAll();
-	public List<Product> findAll(Pageable pageable);
+	public Page<Product> findAll(Pageable pageable);
 			
 //	public void save(Product product);
 	
@@ -26,4 +27,7 @@ public interface ProductService {
 	public List<Product> findByCategoryOrderByCreatedOnDesc(Category category);
 	public List<Product> findByCategoryOrderByPriceAsc(Category category);
 	public List<Product> findByCategoryOrderByPriceDesc(Category category);
+	
+	// add for pagination function
+	Page<Product> findPaginated(int pageNo, int pageSize);
 }

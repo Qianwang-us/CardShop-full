@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -70,10 +71,47 @@ public class HomeController {
 		
 		//List<Product> products = productService.findAll();
 		Pageable pageable = PageRequest.of(0, ProductList.pageSize);
-		List<Product> products = productService.findAll(pageable);
-		
-		model.addAttribute("products", products);
+		List<Product> products = productService.findAll(pageable).getContent();
+//		
+//		model.addAttribute("products", products);
 		model.addAttribute("isHome", true);
+//		return "views/product_list";
+		
+		return findProductsPaginated(1, ProductList.pageSize, session, model);
+	}
+	
+	@GetMapping("/page/{pageNo}/{pageSize}")
+	public String findProductsPaginated(@PathVariable(value="pageNo") int pageNo, @PathVariable(value="pageSize") int pageSize, HttpSession session, Model model) {
+		
+		// try to get authentication info in case user comes from login page
+		String email = null;
+		try {
+			email = SecurityUtils.getUserName();						
+
+		}catch(Exception e) {
+			logger.warn("method index: Wrong with SecurityUtils.getUserName() ");
+		}
+		
+		// use case: user login, redirect to home page, set session currentUser if it is not set yet
+		try {
+			if(email != null && session.getAttribute("currentUser") == null) {
+				User user = userService.findByEmail(email).get();
+				session.setAttribute("currentUser", user);
+				session.setAttribute("role", user.getRole());
+				logger.trace("index, path(/), user: " + user);
+			}
+		}catch(Exception e) {
+			logger.warn("method index: Wrong with session ");
+		}
+		
+		Page<Product> productsPage = productService.findPaginated(pageNo, pageSize);
+		
+		model.addAttribute("products", productsPage.getContent());
+		//model.addAttribute("isHome", true);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages",productsPage.getTotalPages());
+		model.addAttribute("totalItems",productsPage.getTotalElements());
+		
 		return "views/product_list";
 	}
 

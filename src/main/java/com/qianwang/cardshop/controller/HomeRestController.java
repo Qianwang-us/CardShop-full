@@ -35,7 +35,7 @@ public class HomeRestController {
 	@GetMapping("/products")
 	public List<Product> getProducts(){
 		Pageable pageable = PageRequest.of(0, ProductList.pageSize);
-		List<Product> products = productService.findAll(pageable);
+		List<Product> products = productService.findAll(pageable).getContent();
 		return products;
 	}
 	

@@ -75,6 +75,38 @@ img {
   padding-inline-start: 5%;
 }
 
+/* Add for pagination style */
+.pagination {
+  display: block;  
+}
+
+.center {
+  margin: 2% auto;
+  text-align:center;
+}
+
+.pagination a {
+  color: black;
+  /* float: left; */
+  /* padding: 8px 16px; */
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+
+.pagination .active {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.5em 1em;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+.page-index {
+	display:inline-block;
+}
+
 /* footer */
 footer {
   border-top: 2px solid var(--header-border-color);
