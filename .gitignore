@@ -22,6 +22,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
+**/src/main/resources/application.properties
 .settings/
 .loadpath
 .recommenders
